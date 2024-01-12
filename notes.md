@@ -31,3 +31,7 @@ _...allow users to connect to the game._
 _...require users to create some account before they can play, though they could maybe see scores beforehand._
 _...use WebSockets to pass signals between the dealer and the players._
 _...use React for whatever React does?_
+
+*Assignment due Wednesday:*
+Update README.md to include elevator pitch, sketch of tech
+- Key features, technologies
