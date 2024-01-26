@@ -1,20 +1,23 @@
 # Web Programming
 ## Dillon Jensen
 
-### _22/JAN/2024
+### _26/JAN/2024_
+HTML gives your site structure. The more helpful structure tags you can give to your site, the better the user's device (etc.) will be able to interpret what's going on.
+
+### _22/JAN/2024_
 Route 53 gets you a URL and directs it toward a specific server.
 Caddy controls which files a URL feeds you to---like if I do mail.google.com it sends me to gmail instead of google.com homepage.
 If your connection to a site is not secure that means that all the communication between you and every middle-man site is unencrytped.
 --> Could even include people on the same wireless network.
 Gotta use Let's Encrypt etc.
 
-### _19/JAN/2024
+### _19/JAN/2024_
 Technology stack
 - HTML/JS/CSS communicate with the server
 - Caddy determines whether that communication pertains to one service or another (i.e. is it my startup or is it Simon running on my same AWS account?)
 - Server exchanges information with the database
 
-### _12/JAN/2024
+### _12/JAN/2024_
 HTML - Elements in the webpage
 CSS - Layout & styling
 JavaScript - Script monitoring the 
