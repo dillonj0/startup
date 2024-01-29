@@ -1,6 +1,35 @@
 # Web Programming
 ## Dillon Jensen
 
+### _29/JAN/2024_
+My app HTML could look something like this structure
+```
+<!DOCTYPE html>
+<html>
+   <head></head>
+   <body>
+      <header>
+         <nav>
+            <h1>Title</h1>
+            <menu>
+               <li></li> <!-- Links to other pages in site-->
+               <li></li>
+               <li></li>
+            </menu>
+         </nav>
+      </header>
+      <main>
+         <h1>Title</h1>
+         <p>(description)</p>
+         <form></form>
+      </main>
+      <footer>
+         (information, links to creator data?)
+      </footer>
+   </body>
+</html>
+```
+
 ### _26/JAN/2024_
 HTML gives your site structure. The more helpful structure tags you can give to your site, the better the user's device (etc.) will be able to interpret what's going on.
 
