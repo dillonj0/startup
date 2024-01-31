@@ -1,6 +1,9 @@
 # Web Programming
 ## Dillon Jensen
 
+### _30/JAN/2024_
+To put Simon.html on my page under the simon heading, I used the prescribed deployment file and pushed it using the secure key out to the web.
+
 ### _29/JAN/2024_
 My app HTML could look something like this structure
 ```
