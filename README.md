@@ -33,3 +33,11 @@ I will use...
 - **DB/LOGIN** to record login information: users must register to play.
 - **WebSocket** to handle the communication between the "dealer" and the players; user input on one machine must be reflected in updates on the other players' devices so that the score and gameplay is consistent across all fronts.
 - **React** to make the application look really good once I figure out how to use it.
+
+## HTML Deliverable
+### Requirements
+- Simon HTML deployed to the production environment:
+[simon HTML page](simon.mallowsnatchers.click)
+- Link to GitHub startup repository displayed on the application homepage
+- Notes in README.md documenting what you modified and added with this deliverable
+- At least 10 git commits spread consistently throughout the assignment period
