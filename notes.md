@@ -1,6 +1,22 @@
 # Web Programming
 ## Dillon Jensen
 
+### _02/FEB/2024_
+My startup HTML has to include 3rd party services. The Startup Specification page has a list of 3rd party apps that I can communicate with in my actual application.
+## CSS
+in the HTML head,
+<link href="[filename].css" rel="stylesheet">
+different fonts; if you want to use a font you go to fonts.google.com
+- Download font family that you like?
+- - @font-face{
+       font-family: "Quicksand"
+       src: url("[location of the font file you downloaded]")
+    }
+- @import url("[link that google gives you for the font you want]")
+- - body {font-family: Rubik}
+## Unicode & UTF 8
+
+
 ### _30/JAN/2024_
 To put Simon.html on my page under the simon heading, I used the prescribed deployment file and pushed it using the secure key out to the web.
 
