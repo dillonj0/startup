@@ -1,6 +1,11 @@
 # Web Programming
 ## Dillon Jensen
 
+### _05/FEB/2024_
+Scaleability is constantly a concern; especially migrating between devices or supported languages, you have to make sure you as the programmer take variation into account rather than just hoping that the host devices figure it all out on their own.
+- Grid scaling puts every child element in a box of maximum possible size within certain constraints that still fit in the screen/allowed space.
+- Flex scaling makes it super easy to say what direction things scale in and how much of the screen each item should take up.
+
 ### _02/FEB/2024_
 My startup HTML has to include 3rd party services. The Startup Specification page has a list of 3rd party apps that I can communicate with in my actual application.
 ## CSS
@@ -15,6 +20,41 @@ different fonts; if you want to use a font you go to fonts.google.com
 - @import url("[link that google gives you for the font you want]")
 - - body {font-family: Rubik}
 ## Unicode & UTF 8
+Unicode has like 4 billion possible characters
+-> to cut down on file size and all, UTF-8 checks the first bit of each character, and this bit tells the processor whether or not to use additional bits to determine which character you're trying to render.
+## Animation
+p {
+   text-align: center;
+   font-size: 20vh;
+   animation-name: demo;
+   animation-duration: 3s;
+   // animation: demo 1s infinite y7alternate;
+}
+@keyframes demo {
+   from {
+      font-size: 0vh;
+      color: purple;
+   }
+   95% {
+      color: lightgrey;
+      font-size: 21vh;
+   }
+   to {
+      color: black;
+      font-size: 20vh;
+   }
+}
+In demonstration, he used a comma seperated list to call out specifically one tag in the HTML, i.e.
+```header, main, footer { }```
+"Any descendant is the space, if you do a comma it's just any"
+Content -> Pals -> Before -> Margin... something
+
+for html objects with a class declared, use the class selector in CSS to pick them out specifically:
+```
+for <span class='lava'>oh no there is lava</span>
+use .summary { } in your css
+```
+vh is percent of the viewport's height
 
 
 ### _30/JAN/2024_
