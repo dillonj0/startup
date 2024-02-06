@@ -5,6 +5,7 @@
 Scaleability is constantly a concern; especially migrating between devices or supported languages, you have to make sure you as the programmer take variation into account rather than just hoping that the host devices figure it all out on their own.
 - Grid scaling puts every child element in a box of maximum possible size within certain constraints that still fit in the screen/allowed space.
 - Flex scaling makes it super easy to say what direction things scale in and how much of the screen each item should take up.
+@media etc... media queries let you determine how to change styling if certain criteria are met.
 
 ### _02/FEB/2024_
 My startup HTML has to include 3rd party services. The Startup Specification page has a list of 3rd party apps that I can communicate with in my actual application.
