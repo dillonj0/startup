@@ -36,8 +36,16 @@ I will use...
 
 ## HTML Deliverable
 ### Requirements
+For this deliverable I deployed the Simon HTML to my server and built the structure for my startup application using HTML.
 - Simon HTML deployed to the production environment:
 [simon HTML page](simon.mallowsnatchers.click)
-- Link to GitHub startup repository displayed on the application homepage
-- Notes in README.md documenting what you modified and added with this deliverable
-- At least 10 git commits spread consistently throughout the assignment period
+- Startup HTML deployed to production environment:
+[startup HTML page](startup.mallowsnatchers.click)
+- **HTML pages** - Four pages. One default screen where a user is asked to register or log in. A lobby for creating or joining a game. A page for gameplay. An about page with instructions and all time best scores.
+- **Links** - Nav menu links between different pages. Home page links to join. Join links to play. Play links to join if you quit.
+- **Text** - There clearly is text in this webpage :)
+- **3rd party service calls** - I might need to rely on a 3rd party service to do authentication or provide a random number for increasing the count on the mallow-meter during gameplay.
+- **Images** - Mallow icon is visible in top-left, during game play, and on the scoreboard. Scale on scoreboard corresponds to a player's current score.
+- **Login placeholder** - Visible on home page (index.html)
+- **Database data placeholder** - Usernames/passwords/high scores are stored persistently on the site
+- **WebSocket** - Will need to be used to update scores accross the players. If I am smart I can probably just get away with having the users send a flag when they click "snatch" and the server automatically calculates and distributes scoring information as the game progresses.
