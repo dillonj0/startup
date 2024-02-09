@@ -1,6 +1,20 @@
 # Web Programming
 ## Dillon Jensen
 
+### _09/FEB/2024_
+*JavaScript*
+about:blank gives you a window where you can open the console and have an immediate JavaScript interpreter.
+String concatenation is easy---like in Python you can just do
+`console.log('hey' + 'you')``
+functions have to be declared by first saying "function," as in Python
+
+declare a variable:
+`let x = 1`
+As you code, you can keep changing the variable type by reassigning the variable
+`x = '1'`
+`x = undefined`
+A function is actually a primitive 
+
 ### _05/FEB/2024_
 Scaleability is constantly a concern; especially migrating between devices or supported languages, you have to make sure you as the programmer take variation into account rather than just hoping that the host devices figure it all out on their own.
 - Grid scaling puts every child element in a box of maximum possible size within certain constraints that still fit in the screen/allowed space.
