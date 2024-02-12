@@ -7,8 +7,20 @@ body {
    flex-direction: column;
 }
 
+header {
+   flex: 0.1 80px;
+}
+
+main {
+   flex: 1;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+main img {display: none}
+
 @media (max-height: 600px){
-   header nav {
+   header {
       display: none;
    }
    footer a {
@@ -16,5 +28,10 @@ body {
    }
    main {
       flex: 1 100 vh;
+   }
+   main img {
+      width: 20vh;
+      display: flex;
+      opacity: 1;
    }
 }
