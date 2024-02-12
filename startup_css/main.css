@@ -1,0 +1,20 @@
+html {
+   font-family: sans-serif;
+}
+
+body {
+   display: flex;
+   flex-direction: column;
+}
+
+@media (max-height: 600px){
+   header nav {
+      display: none;
+   }
+   footer a {
+      display: none;
+   }
+   main {
+      flex: 1 100 vh;
+   }
+}
