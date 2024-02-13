@@ -1,20 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
    <head>
-      <title>MallowSnatchers HTML</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>MallowSnatchers CSS</title>
       <link rel = "icon" href="favicon.ico" />
       <meta charset="UTF-8"/>
       <link rel = "stylesheet" href="main.css"/>
+      <!--Bootstrap link-->
+      <link
+         href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+         rel="stylesheet"
+         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+         crossorigin="anonymous"
+      />
    </head>
    <body>
       <header>
          <h1><img alt="Mallow icon" width="50" src="android-chrome-192x192.png"/> Mallow Snatchers</h1>
          <nav>
             <menu>
-               <li><a href="index.html">Home</a></li>
-               <li><a href="join.html">Join a game</a></li>
-               <li><a href="play.html">Play</a></li>
-               <li><a href="about.html">About</a></li>
+               <li class="nav_item"><a href="index.html">Home</a></li>
+               <li class="nav_item"><a href="join.html">Join a game</a></li>
+               <li class="nav_item"><a href="play.html">Play</a></li>
+               <li class="nav_item"><a href="about.html">About</a></li>
             </menu>
          </nav>
       </header>
@@ -23,11 +31,11 @@
          <img alt="Mallow icon" width="50" src="android-chrome-192x192.png"/>
          <p>Log in to join a game.</p>
          <form method="get" action="join.html">
-            <label for="username">Username: </label>
+            <!-- <label for="username">Username: </label> -->
             <input type="text" id="username" placeholder="Username" required/><br>
-            <label for="password">Password: </label>
+            <!-- <label for="password">Password: </label> -->
             <input type="password" id="password" placeholder="Password" required/><br>
-            <button type="submit">Let's play!</button>
+            <button type="button" class="btn btn-outline-success">Let's play!</button>
          </form>
       </main>
       <hr />
