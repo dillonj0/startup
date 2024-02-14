@@ -85,9 +85,6 @@ footer {
    header {
       display: none;
    }
-   footer a {
-      display: none;
-   }
    main {
       flex: 1 100 vh;
    }
