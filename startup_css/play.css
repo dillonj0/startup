@@ -72,7 +72,6 @@ span {
       opacity: 1;
    }
 }
-main img {display: none}
 
 form input {
    border-radius: 5px;
@@ -106,17 +105,15 @@ footer {
    align-items: center;
 }
 
-@media (max-height: 600px){
+@media (max-height: 750px){
    header {
       display: none;
    }
    main {
       flex: 1 100 vh;
    }
-   main img {
-      width: 20vh;
-      display: flex;
-      opacity: 1;
+   .Scoreboard {
+      display: none;
    }
 }
 
@@ -124,9 +121,14 @@ footer {
    header{display: none;}
    footer{display:none;}
    hr{display: none;}
+   span{display:none;}
 }
 
 @media (max-width: 700px){
    header a{display: none;}
    footer a{display:none;}
+   .Scoreboard{display:none;}
+   main img {
+      width:20vw;
+   }
 }
