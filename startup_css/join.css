@@ -96,7 +96,7 @@ footer {
    }
 }
 
-@media (max-height: 350px){
+@media (max-height: 400px){
    header{display: none;}
    footer{display:none;}
    hr{display: none;}

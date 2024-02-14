@@ -1,6 +1,13 @@
 # Web Programming
 ## Dillon Jensen
 
+### _12/FEB/2024_
+Notes on Simon.css launch:
+- Made main body text align to end and changed source background color to red.
+
+Notes on JavaScript
+- All kinds of different structures we can use to get our point accross.
+
 ### _09/FEB/2024_
 *JavaScript*
 about:blank gives you a window where you can open the console and have an immediate JavaScript interpreter.
@@ -13,7 +20,10 @@ declare a variable:
 As you code, you can keep changing the variable type by reassigning the variable
 `x = '1'`
 `x = undefined`
-A function is actually a primitive 
+A function is actually a primitive
+
+*css* I really like the look of this button for mallowsnatchers
+`<button type="button" class="btn btn-outline-success">snatch now!</button>`
 
 ### _05/FEB/2024_
 Scaleability is constantly a concern; especially migrating between devices or supported languages, you have to make sure you as the programmer take variation into account rather than just hoping that the host devices figure it all out on their own.
