@@ -49,3 +49,14 @@ For this deliverable I deployed the Simon HTML to my server and built the struct
 - **Login placeholder** - Visible on home page (index.html)
 - **Database data placeholder** - Usernames/passwords/high scores are stored persistently on the site
 - **WebSocket** - Will need to be used to update scores accross the players. If I am smart I can probably just get away with having the users send a flag when they click "snatch" and the server automatically calculates and distributes scoring information as the game progresses.
+
+## CSS Deliverable
+[x] - done = [x] - done - Prerequisite: [Simon CSS](simon.mallowsnatchers.click) deployed to my production environment.
+[x] - done - Prerequisite: [Startup CSS](startup.mallowsnatchers.click) deployed to my production environment.
+[x] - done - Prerequisite: Updated notes in README.md
+[x] - done - 30% Header, footer, and main content body. Used flex to layout sections.
+[x] - done - 20% Navigation elements. For large screens, navigation menu in header. For small screens, the user navigates with the flow of the app, but doesn't ever go to the about screen.
+[x] - done - 10% Responsive to window resizing. Verified in debugger and on phone/computer.
+[x] - done - 20% Application elements. Buttons are using bootstrap.
+[x] - done - 10% Application text content. Sans-serif text.
+[x] - done - 10% Application images. Responsive sizing of mallow image; I'm especially proud of the home screen image dynamic sizing.
