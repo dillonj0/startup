@@ -1,6 +1,19 @@
 # Web Programming
 ## Dillon Jensen
 
+### _20/FEB/2024_
+## Promises
+Everything in JavaScript must be asynchronous; if you're waiting for some long process to execute, you're going to be totally locked up and having a bad time.
+- `setTimeout( () => {//run some code}, time_in_ms)` function is built in and lets you wait a certain number of milliseconds before trying to run the stuff in brackets.
+- `pending` is currently running asynchronously
+- `fulfilled` is completed successfull
+- `rejected` failed to complete
+`new Promise((resolve, reject) => resolve(true)`
+- Call the resolve function, then set the state depending on what happened with the function call.
+
+# async/await
+
+
 ### _12/FEB/2024_
 Notes on Simon.css launch:
 - Made main body text align to end and changed source background color to red.
@@ -12,7 +25,7 @@ Notes on JavaScript
 *JavaScript*
 about:blank gives you a window where you can open the console and have an immediate JavaScript interpreter.
 String concatenation is easy---like in Python you can just do
-`console.log('hey' + 'you')``
+`console.log('hey' + 'you')`
 functions have to be declared by first saying "function," as in Python
 
 declare a variable:
