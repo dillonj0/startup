@@ -32,12 +32,23 @@ header {
    justify-content: space-around;
 }
 
-main table {
-   display: flex;
-   flex: 0.5;
-   align-items: center;
-   justify-content: center;
-}
+.Scoreboard {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+   gap: 20px;
+ }
+ 
+ .player-scoreboard {
+   border: 1px solid #ccc;
+   padding: 10px;
+   text-align: center;
+ }
+ 
+ .player-scoreboard img {
+   max-width: 100px;
+   max-height: 100px;
+ }
+
 tr{
    /* display: flex; */
    /* flex-direction: row; */
@@ -49,11 +60,9 @@ td{
 }
 
 main {
-   flex: 1 80vh;
    display: flex;
+   flex: 0;
    flex-direction: column;
-   align-items: center;
-   justify-content: center;
    animation: fade 1s;
 }
 
@@ -115,6 +124,7 @@ footer {
    .Scoreboard {
       display: none;
    }
+   .ScoreboardLabel{display:none;}
 }
 
 @media (max-height: 440px){
