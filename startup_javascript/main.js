@@ -4,8 +4,10 @@ function login() {
    localStorage.setItem('userName', usernameElement.value)
    console.log(localStorage.getItem('userName'))
 
-   if(document.querySelector('#password').value) {
+   if(document.querySelector('#password').value !== '') {
+      console.log("redirecting to join.html")
       window.location.href='join.html';
+      
    }
    else {
       console.log('User did not provide password.')
