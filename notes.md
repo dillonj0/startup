@@ -1,6 +1,19 @@
 # Web Programming
 ## Dillon Jensen
 
+### _21/FEB/2024_
+## LocalStorage
+# Store variables on a users API between refreshes etc.
+# _Items bust be string, number, or boolean. Use JSON.stringify() or JSON.parse() to add/remove other items (i.e. array, object) in local storage._
+setItem(name, value)
+- Sets a named item's value into local storage
+getItem(name)
+- Gets a named item's value from local storage
+removeItem(name)
+- Removes a named item from local storage
+clear()
+- Clears all items in local storage
+
 ### _20/FEB/2024_
 ## Promises
 Everything in JavaScript must be asynchronous; if you're waiting for some long process to execute, you're going to be totally locked up and having a bad time.
@@ -12,7 +25,8 @@ Everything in JavaScript must be asynchronous; if you're waiting for some long p
 - Call the resolve function, then set the state depending on what happened with the function call.
 
 # async/await
-
+- Avoid await except inside of an async function so that you don't lock up your top-level execution.
+- async function will create a promise wrapper... play with it and it'll start to make more sense I guess.
 
 ### _12/FEB/2024_
 Notes on Simon.css launch:
