@@ -28,7 +28,7 @@
       </header>
       <hr />
       <main>
-         <span>Player: [player name]</span>
+         <span id="player-name">!PLAYER NAME NOT SPECIFIED</span>
          <h1>ROUND 13 of 15</h1>
          <table>
             <tr>
@@ -40,37 +40,24 @@
             </tr>
          </table>
          
-         <table class="Scoreboard">
-            <h2 class="Scoreboard">Scoreboard</h2>
-            <tr>
-               <th>- LeeSJensen -</th>
-               <th>- QueVivasBien -</th>
-               <th>- feverishmom -</th>
-               <th>- feverishmom2 -</th>
-               <th>- feverishmom3 -</th>
-            </tr>
-            <tr>
-               <td><img alt="Mallow icon" width="100" src="android-chrome-192x192.png"/></td>
-               <td><img alt="Mallow icon" width="80" src="android-chrome-192x192.png"/></td>
-               <td><img alt="Mallow icon" width="65" src="dark_mallow-192x192.png"/></td>
-               <td><img alt="Mallow icon" width="55" src="dark_mallow-192x192.png"/></td>
-               <td><img alt="Mallow icon" width="30" src="android-chrome-192x192.png"/></td>
-            </tr>
-            <tr>
-               <td>1154<br>mallows</td>
-               <td>885<br>mallows</td>
-               <td>678<br>mallows</td>
-               <td>640<br>mallows</td>
-               <td>250<br>mallows</td>
-            </tr>
-            <tr>
-               <td></td>
-               <td></td>
-               <td>SNATCHED!</td>
-               <td>SNATCHED!</td>
-               <td></td>
-            </tr>
-         </table>
+         <div class="Scoreboard">
+            <h2>Scoreboard</h2>
+            <div class="player-scoreboard">
+               <div class="player-name">[player-name]</div>
+               <div class="player-icon"><img src="android-chrome-192x192.png"/></div>
+               <div class="mallow-count">[num] mallows</div>
+            </div>
+            <div class="player-scoreboard">
+               <div class="player-name">[player-name]</div>
+               <div class="player-icon"><img src="android-chrome-192x192.png"/></div>
+               <div class="mallow-count">[num] mallows</div>
+            </div>
+            <div class="player-scoreboard">
+               <div class="player-name">[player-name]</div>
+               <div class="player-icon"><img src="android-chrome-192x192.png"/></div>
+               <div class="mallow-count">[num] mallows</div>
+            </div>
+         </div>
          <a href = "join.html"><button class="btn btn-outline-secondary">Quit game</button></a>
       </main>
       <br/>
@@ -84,5 +71,6 @@
             <div><a href="https://thedillon.bandcamp.com">Music</a></div>
          </div>
       </footer>
+      <script src="play.js"></script>
    </body>
 </html>
