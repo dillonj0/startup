@@ -61,6 +61,12 @@ main {
    text-align: center;
 }
 
+.countdown-timer {
+   font-size: 30px;
+   font-weight: bold;
+   padding: 0px;
+}
+
 .ScoreboardLabel {
    text-align: center;
    padding: 10px;

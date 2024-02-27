@@ -31,13 +31,7 @@ const secLeftElement = document.querySelector('.countdown-timer')
 // Play a certain number of rounds
 for(let i = 1; i <= NUMBER_OF_ROUNDS; i++) {
    roundNumberElement.textContent = "ROUND " + i + " of " + NUMBER_OF_ROUNDS;
-   // Each round, count down the timer and adjust scores;
-   // while (localStorage.getItem('SECONDS_LEFT') > 0) {
-   //    console.log(localStorage.getItem('SECONDS_LEFT'));
-   //    secLeftElement.textContent = localStorage.getItem('SECONDS_LEFT');
-   //    setTimeout( () => {
-   //       localStorage.setItem('SECONDS_LEFT', localStorage.getItem('SECONDS_LEFT') - 1);
-   //    }, 1000);
-   // }
+   secLeftElement.textContent = secondsLeft;
+   // Update the countdown timer every second until it equals 0
 }
 
