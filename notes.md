@@ -3,6 +3,16 @@
 
 ### _26/FEB/2024_
 When adding JS, use the script rather than the HTML to transition between the login page and the play screens so that I also have time to record the username information.
+## Servers etc.
+Different processes to get machines at different addresses linked to each other.
+- Transport:
+- - TCP is thorough and verifies that the correct signal was received
+- - UDP is faster and just keeps slammin' packets down the ol' pipe
+
+443 is secure HTTP port, reserved specifically for such communications. Has to specify protocol and port number.
+- These days, there's no reason to not have a certificate these days
+
+
 
 ### _21/FEB/2024_
 ## LocalStorage

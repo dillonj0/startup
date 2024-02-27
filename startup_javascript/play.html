@@ -28,20 +28,24 @@
       </header>
       <hr />
       <main>
-         <div class = gameplay>
          <span id="player-name">!PLAYER NAME NOT SPECIFIED</span>
-         <h1>ROUND 13 of 15</h1>
-         <table>
-            <tr>
-               <th><h1>3</h1><h3>seconds left!</h3></th>
-               <td><img alt="Mallow icon" width="150" src="android-chrome-192x192.png"/></td>
-               <td><h3>Mallow total:</h3>
-                  <h1>156</h1></td>
-               <td><button class="btn btn-success">Snatch now!</button></td>
-            </tr>
-         </table>
+         <h1 id="round-label">ROUND {#} of 15</h1>
+         <div class = "gameplay">
+            <div>
+               <div class = "countdown-timer">{#}</div>
+               <div>seconds left!</div>
+            </div>
+            <img alt="Mallow icon" width="100" src="android-chrome-192x192.png"/>
+            <div>
+               <div>Mallows:</div>
+               <div class = "mallow-total">{#}</div>
+            </div>
+            <div>
+               <button class="btn btn-success" onclick="snatch()">Snatch now!</button>
+            </div>
          </div>
-
+      </main>
+      <scoreboard>
          <h3 class="ScoreboardLabel">Scoreboard</h3>
          <div class="Scoreboard">
             <div class="player-scoreboard">
@@ -65,8 +69,10 @@
                <div class="mallow-count">[num] mallows</div>
             </div>
          </div>
-         <a href = "join.html"><button class="btn btn-outline-secondary">Quit game</button></a>
-      </main>
+         <div class="quit-button">
+            <a href = "join.html"><button class="btn btn-outline-secondary">Quit game</button></a>
+         </div>
+      </scoreboard>
       <br/>
       
       <hr />
