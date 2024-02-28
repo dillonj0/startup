@@ -21,7 +21,7 @@ function getPlayerName() {return localStorage.getItem('userName');}
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const NUMBER_OF_ROUNDS = 5;
 const SEC_PER_ROUND = 3;
-const NEXT_ROUND_LUCK = 0.16;
+const NEXT_ROUND_LUCK = 1;//0.16;
 const DOUBLES_LUCK = 0.33;
 const MALLOW_SCALE = 10;
 const MIN_MALLOW_IMG_SIZE = 50;
@@ -112,7 +112,6 @@ function endRound(){
       document.getElementById('snatch-button').textContent = "😵";
    }
    mallowTotalElement.textContent = "0";
-
 }
 
 function endGame(){
@@ -121,6 +120,23 @@ function endGame(){
    document.querySelector('.gameplay').style.display = "none";
    document.getElementById('next-round-button').style.display = "none";
    roundNumberElement.style.display = "none";
+   document.getElementById('last-round-action').textContent = " ";
+
+   // Make the final score elements appear
+   const mainItems = document.querySelectorAll('.post-game-main')
+   mainItems.forEach((item) => {
+      item.style.display = "flex";
+   });
+   document.querySelector('#post-game-score').textContent = playerScore;
+
+   // Update the final score in localStorage
+   if(localStorage.getItem('scoreArray')){
+      let newScore = 0;//{username: } //
+      // 
+      // HOW DO I STORE AN OBJECT.
+      //
+      localStorage.getItem('scoreArray').append()
+   }
 }
 
 function snatch_reset() {

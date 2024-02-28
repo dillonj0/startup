@@ -29,6 +29,8 @@
       <hr />
       <main>
          <span id="player-name">!PLAYER NAME NOT SPECIFIED</span>
+         <div class = 'post-game-main'>Your final score:</div>
+         <div class = 'post-game-main' id="post-game-score"></div>
          <h1 id="round-label">ROUND {#} of 15</h1>
          <div class = "gameplay">
             <div>
@@ -46,7 +48,7 @@
          </div>
       </main>
       <div id = 'last-round-action'></div>
-      <button class="btn btn-outline-secondary" id="next-round-button" disabled="true" onclick="playRounds()">Next round</button>
+      <button class="btn btn-outline-secondary" id="next-round-button" disabled="true" onclick="playRounds()">Next round</button>      
       <scoreboard id = "scoreboard-board">
          <h3 class="ScoreboardLabel">Scoreboard</h3>
          <div class="Scoreboard">
