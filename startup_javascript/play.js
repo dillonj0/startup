@@ -40,6 +40,7 @@ let playerScore = 0; // IMPLEMENT A CLASS INSTEAD
 playRounds();
 
 async function playRounds(){
+   snatch_reset();
    document.getElementById('next-round-button').disabled = true;
    document.getElementById('snatch-button').disabled = false;
    document.getElementById('snatch-button').textContent = "Snatch now!";
@@ -122,8 +123,12 @@ function endGame(){
    roundNumberElement.style.display = "none";
 }
 
-function snatch_reset(playerid) {
+function snatch_reset() {
    console.log('snatch reset');
+   const playerIcons = document.querySelectorAll(".player-icon");
+   playerIcons.forEach((icon) => {
+      icon.src="android-chrome-192x192.png";
+   });
 }
 
 function snatch(playerid) {
@@ -133,10 +138,16 @@ function snatch(playerid) {
 
    // Set up which elements we're talking about
    console.log('snatch ' + playerid);
-   const playerScoreboardElement = document.getElementById('.player1');
+   const playerScoreboardElement = document.getElementById(playerid);
    const scoreImgElement = document.querySelector('.player-icon');
    const scoreElement = document.querySelector('.mallow-count');
 
+   // Update score & score display
    playerScore += mallowCount;
    scoreElement.textContent = playerScore + ' mallows';
+   // Grow mallow score size accordingly
+   let sizeString = playerScore + 'px';
+   scoreImgElement.style.height = sizeString;
+   scoreImgElement.style.width = sizeString;
+   document.querySelector(".player-icon").src="dark_mallow-192x192.png";
 }
