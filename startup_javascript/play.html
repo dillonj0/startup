@@ -35,16 +35,17 @@
                <div class = "countdown-timer">{#}</div>
                <div>seconds left!</div>
             </div>
-            <img alt="Mallow icon" width="100" src="android-chrome-192x192.png"/>
+            <img id="mallow-count-image" alt="Mallow icon" width="100" height="100" src="android-chrome-192x192.png"/>
             <div>
                <div>Mallows:</div>
                <div class = "mallow-total">{#}</div>
             </div>
             <div>
-               <button class="btn btn-success" onclick="playRounds()">Snatch now!</button>
+               <button class="btn btn-success" id="snatch-button">Snatch now!</button>
             </div>
          </div>
       </main>
+      <button class="btn btn-outline-secondary" id="next-round-button" disabled="true" onclick="playRounds()">Next round</button>
       <scoreboard>
          <h3 class="ScoreboardLabel">Scoreboard</h3>
          <div class="Scoreboard">

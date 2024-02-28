@@ -67,6 +67,11 @@ main {
    padding: 0px;
 }
 
+.mallow-total {
+   font-size: 30px;
+   font-weight: bolder;
+}
+
 .ScoreboardLabel {
    text-align: center;
    padding: 10px;
@@ -93,6 +98,13 @@ main {
 
 span {
    font-weight: bold;
+}
+
+#next-round-button {
+   width: 150px;
+   align-self: center;
+   padding: 5px;
+   margin-bottom: 10px;
 }
 
 .quit-button {
@@ -143,7 +155,8 @@ footer {
    header{display: none;}
    footer{display:none;}
    hr{display: none;}
-   span{display:none;}
+   .quit-button{display: none;}
+   /* span{display:none;} */
 }
 
 @media (max-width: 700px){
