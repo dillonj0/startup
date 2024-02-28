@@ -18,9 +18,9 @@ function getPlayerName() {return localStorage.getItem('userName');}
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~ ACTUAL GAMEPLAY ~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const NUMBER_OF_ROUNDS = 15;
+const NUMBER_OF_ROUNDS = 1;
 const SEC_PER_ROUND = 3;
-const NEXT_ROUND_LUCK = 0.16;
+const NEXT_ROUND_LUCK = 1;//0.16;
 const DOUBLES_LUCK = 0.33;
 const MALLOW_SCALE = 10;
 const MIN_MALLOW_IMG_SIZE = 50;
@@ -39,19 +39,24 @@ playRounds();
 async function playRounds(){
    document.getElementById('next-round-button').disabled = true;
    document.getElementById('snatch-button').disabled = false;
-   document.getElementById('snatch-button').textContent = "Snatch now!"
+   document.getElementById('snatch-button').textContent = "Snatch now!";
    mallowCount = MALLOW_SCALE;
    round++;
-   if(round<NUMBER_OF_ROUNDS){
+   if(round==NUMBER_OF_ROUNDS){
+      document.getElementById('next-round-button').textContent = "End Game";
+   }
+   if(round<=NUMBER_OF_ROUNDS){
       roundNumberElement.textContent = "Round " + round + " of " + NUMBER_OF_ROUNDS;
       secondsLeft = SEC_PER_ROUND;
       secLeftElement.textContent = secondsLeft;
-   }
-   console.log("round " + round);
-   try{await countDown();}
-   catch{console.log('countdown failed.')}
-   finally{
-      print('playrounds finally')
+      console.log("round " + round);
+      try{await countDown();}
+      catch{console.log('countdown failed.');}
+      finally{
+         console.log('playrounds finally');
+      }
+   } else {
+      endGame();
    }
 }
 
@@ -101,4 +106,16 @@ function endRound(){
    document.getElementById('snatch-button').disabled = true;
    document.getElementById('snatch-button').textContent = "😵";
    mallowTotalElement.textContent = "SNATCHED!";
+}
+
+function endGame(){
+   console.log('ending game...');
+   // Make the gameplay elements disappear
+   document.querySelector('.gameplay').style.display = "none";
+   document.getElementById('next-round-button').style.display = "none";
+   roundNumberElement.style.display = "none";
+}
+
+function snatch(player-id) {
+   
 }
