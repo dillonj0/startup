@@ -41,12 +41,13 @@
                <div class = "mallow-total">{#}</div>
             </div>
             <div>
-               <button class="btn btn-success" id="snatch-button">Snatch now!</button>
+               <button class="btn btn-success" id="snatch-button" onclick="snatch(player1)">Snatch now!</button>
             </div>
          </div>
       </main>
+      <div id = 'last-round-action'></div>
       <button class="btn btn-outline-secondary" id="next-round-button" disabled="true" onclick="playRounds()">Next round</button>
-      <scoreboard>
+      <scoreboard id = "scoreboard-board">
          <h3 class="ScoreboardLabel">Scoreboard</h3>
          <div class="Scoreboard">
             <div class="player-scoreboard" id="player1">

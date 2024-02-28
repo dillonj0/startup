@@ -1,12 +1,13 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~ PAGE SETUP ~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 function AddPlayerName() {
    console.log("starting to set player name...")
    const playerNameElement = document.querySelector('#player-name');
+   const playerNameScoreboardElement = document.querySelector('.player-name');
    let usernameString = getPlayerName();
    playerNameElement.textContent = usernameString;
+   playerNameScoreboardElement.textContent = usernameString;
    console.log("set player name");
 }
 document.addEventListener('DOMContentLoaded', function(){
@@ -18,20 +19,22 @@ function getPlayerName() {return localStorage.getItem('userName');}
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~ ACTUAL GAMEPLAY ~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const NUMBER_OF_ROUNDS = 1;
+const NUMBER_OF_ROUNDS = 5;
 const SEC_PER_ROUND = 3;
-const NEXT_ROUND_LUCK = 1;//0.16;
+const NEXT_ROUND_LUCK = 0.16;
 const DOUBLES_LUCK = 0.33;
 const MALLOW_SCALE = 10;
 const MIN_MALLOW_IMG_SIZE = 50;
 
-let round = 0;
-let secondsLeft = SEC_PER_ROUND;
-let mallowCount;
 const roundNumberElement = document.querySelector('#round-label');
 const secLeftElement = document.querySelector('.countdown-timer');
 const mallowTotalElement = document.querySelector('.mallow-total');
 const mallowCountImage = document.getElementById('mallow-count-image');
+
+let round = 0;
+let secondsLeft = SEC_PER_ROUND;
+let mallowCount = 0;
+let playerScore = 0; // IMPLEMENT A CLASS INSTEAD
 
 // Play a certain number of rounds
 playRounds();
@@ -83,15 +86,15 @@ async function countDown() {
             let rollLuck = Math.random();
             console.log("Dice roll: " + rollLuck);
             if(rollLuck < NEXT_ROUND_LUCK){
-               console.log("round " + round + " ended.")
+               document.getElementById('last-round-action').textContent = "Mallows stolen by goblins. Round " + round + " ended.";
                endRound();
             } else if (rollLuck < DOUBLES_LUCK) {
-               console.log("DOUBLE MALLOWS.");
+               document.getElementById('last-round-action').textContent = "DOUBLE MALLOWS.";
                mallowCount *= 2;
                secondsLeft = SEC_PER_ROUND;
                countDown();
             } else {
-               console.log("Added " + Math.round(rollLuck*MALLOW_SCALE) + " mallows.");
+               document.getElementById('last-round-action').textContent = "Added " + Math.round(rollLuck*MALLOW_SCALE) + " mallows.";
                mallowCount += Math.round(rollLuck*MALLOW_SCALE);
                secondsLeft = SEC_PER_ROUND;
                countDown();
@@ -103,9 +106,12 @@ async function countDown() {
 
 function endRound(){
    document.getElementById('next-round-button').disabled = false;
-   document.getElementById('snatch-button').disabled = true;
-   document.getElementById('snatch-button').textContent = "😵";
-   mallowTotalElement.textContent = "SNATCHED!";
+   if(document.getElementById('snatch-button').disabled === false){
+      document.getElementById('snatch-button').disabled = true;
+      document.getElementById('snatch-button').textContent = "😵";
+   }
+   mallowTotalElement.textContent = "0";
+
 }
 
 function endGame(){
@@ -116,6 +122,21 @@ function endGame(){
    roundNumberElement.style.display = "none";
 }
 
-function snatch(player-id) {
-   
+function snatch_reset(playerid) {
+   console.log('snatch reset');
+}
+
+function snatch(playerid) {
+   // Disable the snatch button so it can't be clicked again.
+   document.getElementById('snatch-button').disabled = true;
+   document.getElementById('snatch-button').textContent = "Snatched!";
+
+   // Set up which elements we're talking about
+   console.log('snatch ' + playerid);
+   const playerScoreboardElement = document.getElementById('.player1');
+   const scoreImgElement = document.querySelector('.player-icon');
+   const scoreElement = document.querySelector('.mallow-count');
+
+   playerScore += mallowCount;
+   scoreElement.textContent = playerScore + ' mallows';
 }
