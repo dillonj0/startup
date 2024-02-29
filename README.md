@@ -60,3 +60,16 @@ For this deliverable I deployed the Simon HTML to my server and built the struct
 - [x] - done - 20% Application elements. Buttons are using bootstrap.
 - [x] - done - 10% Application text content. Sans-serif text.
 - [x] - done - 10% Application images. Responsive sizing of mallow image; I'm especially proud of the home screen image dynamic sizing.
+
+## Javascript Deliverable
+[x] Simon Javascript deployed to production environment.
+[x] Startup Javascript application specifications:
+- Scoring information is added to a "database" which is mocked using localStorage to create a score table on the About page that updates each time you play a game.
+- At login, your username is recorded and used during gameplay and in the high score table
+- Mocked database data is injected into the DOM in the score table.
+- Localstorage keeps the username information and player high scores for now.
+- In the future I'm going to have this game work with multiplayer functionality; people on other computers will be able to log in to the same game on their devices. When other players "snatch," their scores and mallow sizes will be updated accordingly in the scoreboard.
+
+[x] Name and contact information displayed in the footer.
+[x] Code pushed to GitHub.
+[x] Code deployed to production environment.
