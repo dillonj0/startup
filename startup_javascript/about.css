@@ -32,20 +32,14 @@ header {
    justify-content: space-around;
 }
 
-main table {
-   display: flex;
-   flex: 0.5;
-   align-items: center;
-   justify-content: center;
+th, td {
+   border: 1px solid #dddddd;
+   text-align: center;
+   padding: 8px;
 }
-tr{
-   /* display: flex; */
-   /* flex-direction: row; */
-   width: 70vw;
-   justify-content: center;
-}
-td{
-   margin: 10px;
+
+th {
+   cursor: pointer;
 }
 
 main {

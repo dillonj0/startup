@@ -19,9 +19,9 @@ function getPlayerName() {return localStorage.getItem('userName');}
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~ ACTUAL GAMEPLAY ~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const NUMBER_OF_ROUNDS = 5;
+const NUMBER_OF_ROUNDS = 1;
 const SEC_PER_ROUND = 3;
-const NEXT_ROUND_LUCK = 1;//0.16;
+const NEXT_ROUND_LUCK = 0.16;
 const DOUBLES_LUCK = 0.33;
 const MALLOW_SCALE = 10;
 const MIN_MALLOW_IMG_SIZE = 50;
@@ -130,12 +130,15 @@ function endGame(){
    document.querySelector('#post-game-score').textContent = playerScore;
 
    // Update the final score in localStorage
+   let newScore = new Object({score: playerScore, username: getPlayerName()});
    if(localStorage.getItem('scoreArray')){
-      let newScore = 0;//{username: } //
-      // 
-      // HOW DO I STORE AN OBJECT.
-      //
-      localStorage.getItem('scoreArray').append()
+      let scoreArray = JSON.parse(localStorage.getItem('scoreArray'));
+      scoreArray.push(newScore);
+      let scoreString = JSON.stringify(scoreArray);
+      localStorage.setItem('scoreArray', scoreString);
+   } else {
+      let scoreString = JSON.stringify([newScore]);
+      localStorage.setItem('scoreArray', scoreString);
    }
 }
 
