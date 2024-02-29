@@ -19,7 +19,7 @@ function getPlayerName() {return localStorage.getItem('userName');}
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~ ACTUAL GAMEPLAY ~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const NUMBER_OF_ROUNDS = 1;
+const NUMBER_OF_ROUNDS = 5;
 const SEC_PER_ROUND = 3;
 const NEXT_ROUND_LUCK = 0.16;
 const DOUBLES_LUCK = 0.33;
@@ -87,7 +87,7 @@ async function countDown() {
             let rollLuck = Math.random();
             console.log("Dice roll: " + rollLuck);
             if(rollLuck < NEXT_ROUND_LUCK){
-               document.getElementById('last-round-action').textContent = "Mallows stolen by goblins. Round " + round + " ended.";
+               document.getElementById('last-round-action').textContent = randomText() + " Round " + round + " ended.";
                endRound();
             } else if (rollLuck < DOUBLES_LUCK) {
                document.getElementById('last-round-action').textContent = "DOUBLE MALLOWS.";
@@ -169,4 +169,14 @@ function snatch(playerid) {
    scoreImgElement.style.height = sizeString;
    scoreImgElement.style.width = sizeString;
    document.querySelector(".player-icon").src="dark_mallow-192x192.png";
+}
+
+function randomText() {
+   let key = Math.random();
+   console.log('random text key: '+ key);
+   if(key < 0.2){return "Mallows stolen by goblins."}
+   else if(key < 0.4){return "Mallows taken in for questioning."}
+   else if(key < 0.6){return "Mallows eaten by monks."}
+   else if(key < 0.8){return "Mallows destroyed by the passage of time."}
+   else {return "Mallows vanished in a blaze of glory."}
 }
