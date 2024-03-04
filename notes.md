@@ -1,6 +1,41 @@
 # Web Programming
 ## Dillon Jensen
 
+### _04/FEB/2024_
+Node - Run JS as the whole stack instead of referring to backend C etc.
+*express* - 
+- basically does the whole middleware thing interpreting its own stuff fairly well in a self-contained way rather than making you do all the http heavy lifting
+- Install in a project directory: mkdir -> cd -> npm init -y -> npm install express
+- Use in a project:
+```
+const express = require('express');
+const app = express();
+
+app.get('*', (req,res) => {
+   res.send('<h1>Hello Express!</h1>')
+});
+
+app.listen(3000);
+```
+- -> When you send any request to port 3000, the server is going to respond by generating the HTML to display the message "Hello express!"
+
+*middleware*
+```
+app.use(function (req, res, next) {
+   console.log('Time: %d', Date.now());
+   next();
+});
+```
+- You need to send 1 response somewhere, but sometimes you want to do multiple actions before you finish handling the request; The example above is going to log out the time that a request was received, but beware that *_the time will be logged on the server side, not the client side_.*
+```
+app.use(express.static('public', {root: __dirname}));
+```
+- *express.static* will automatically load the html file in the specified directory if it exists. Basically, this lets you just add an html filename to the URL and the HTTP request will get a response directing you to load the file to the page.
+
+Execution order matters.
+
+
+
 ### _26/FEB/2024_
 When adding JS, use the script rather than the HTML to transition between the login page and the play screens so that I also have time to record the username information.
 ## Servers etc.
@@ -11,8 +46,6 @@ Different processes to get machines at different addresses linked to each other.
 
 443 is secure HTTP port, reserved specifically for such communications. Has to specify protocol and port number.
 - These days, there's no reason to not have a certificate these days
-
-
 
 ### _21/FEB/2024_
 ## LocalStorage
