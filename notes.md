@@ -1,6 +1,9 @@
 # Web Programming
 ## Dillon Jensen
 
+### _06/FEB/2024_
+Make sure Startup_service is configured to listen on port 4000 instead of 3000 or I'll be in conflict with Simon
+
 ### _04/FEB/2024_
 Node - Run JS as the whole stack instead of referring to backend C etc.
 *express* - 
