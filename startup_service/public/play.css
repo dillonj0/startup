@@ -1,0 +1,181 @@
+html {
+   font-family: sans-serif;
+   height: 100%;
+}
+
+body {
+   display: flex;
+   margin: 0;
+   flex: 1;
+   height: 100%;
+   flex-direction: column;
+}
+
+h1 {
+   padding-top: 18px;
+}
+
+menu {
+   display: flex;
+   flex-direction: row !important;
+   list-style: none;
+}
+
+.nav_item {
+   margin: 10px;
+}
+
+header {
+   display: flex;
+   flex: 0 60px;
+   flex-direction: row !important;   
+   justify-content: space-around;
+}
+
+main {
+   display: flex;
+   flex: 1;
+   flex-direction: column;
+   animation: fade 1s;
+   justify-content: center;
+}
+
+#player-name {
+   text-align: center;
+}
+
+#round-label {
+   text-align: center;
+   padding: 10px;
+}
+
+.gameplay {
+   padding: 10px;
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+}
+
+.gameplay *{
+   padding: 10px;
+   text-align: center;
+}
+
+.countdown-timer {
+   font-size: 30px;
+   font-weight: bold;
+   padding: 0px;
+}
+
+.mallow-total {
+   font-size: 30px;
+   font-weight: bolder;
+}
+
+.ScoreboardLabel {
+   text-align: center;
+   padding: 10px;
+   color: #b6b6b6;
+   border-top: 1px solid #ccc;
+}
+
+.Scoreboard {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+   gap: 20px;
+   padding: 10px;
+ }
+ 
+ .player-scoreboard {
+   padding: 10px;
+   text-align: center;
+ }
+
+span {
+   font-weight: bold;
+}
+
+.post-game-main{
+   display:none;
+   align-self: center;
+}
+#post-game-score{
+   animation:fade;
+   animation-duration: 3s;
+   font-size: 50px;
+   font-weight: bolder;
+}
+
+#last-round-action {
+   align-self: center;
+   font-style: italic;
+   margin: 5px;
+}
+
+#next-round-button {
+   width: 150px;
+   align-self: center;
+   padding: 5px;
+   margin-bottom: 10px;
+}
+
+.quit-button {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   padding: 10px;
+}
+
+@keyframes fade {
+   from {
+      opacity: 0;
+   }
+   50% {
+      opacity: 0;
+   }
+   to {
+      opacity: 1;
+   }
+}
+
+footer {
+   display: flex;
+   flex: 0 50px;
+   flex-direction: column;
+}
+
+.footer_container {
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
+}
+
+@media (max-height: 750px){
+   header {
+      display: none;
+   }
+   main {
+      flex: 1 100 vh;
+   }
+   .Scoreboard {
+      display: none;
+   }
+   .ScoreboardLabel{display:none;}
+}
+
+@media (max-height: 440px){
+   header{display: none;}
+   footer{display:none;}
+   hr{display: none;}
+   .quit-button{display: none;}
+   /* span{display:none;} */
+}
+
+@media (max-width: 700px){
+   header a{display: none;}
+   footer a{display:none;}
+   .Scoreboard{display:none;}
+   main img {
+      width:15vw;
+   }
+}
