@@ -37,8 +37,6 @@ app.use(express.static('public', {root: __dirname}));
 
 Execution order matters.
 
-
-
 ### _26/FEB/2024_
 When adding JS, use the script rather than the HTML to transition between the login page and the play screens so that I also have time to record the username information.
 ## Servers etc.

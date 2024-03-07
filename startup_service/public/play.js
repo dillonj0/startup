@@ -129,17 +129,7 @@ function endGame(){
    });
    document.querySelector('#post-game-score').textContent = playerScore;
 
-   // Update the final score in localStorage
-   let newScore = new Object({score: playerScore, username: getPlayerName()});
-   if(localStorage.getItem('scoreArray')){
-      let scoreArray = JSON.parse(localStorage.getItem('scoreArray'));
-      scoreArray.push(newScore);
-      let scoreString = JSON.stringify(scoreArray);
-      localStorage.setItem('scoreArray', scoreString);
-   } else {
-      let scoreString = JSON.stringify([newScore]);
-      localStorage.setItem('scoreArray', scoreString);
-   }
+   updateScores();
 }
 
 function snatch_reset() {
@@ -179,4 +169,32 @@ function randomText() {
    else if(key < 0.6){return "Mallows eaten by monks."}
    else if(key < 0.8){return "Mallows destroyed by the passage of time."}
    else {return "Mallows vanished in a blaze of glory."}
+}
+
+async function updateScores() {
+   let newScore = new Object({score: playerScore, username: getPlayerName()});
+   try {
+      // attempt to get the top scores from the server
+      const response = await fetch('/api/score', {
+         method: 'POST',
+         headers: {'content-type': 'application/json'},
+         body: JSON.stringify(newScore)
+      });
+      const scores = await response.json();
+      localStorage.setItem('scoreArray', JSON.stringify(scores));
+
+      // TODO: write server response in backend INDEX.JS
+
+   } catch {
+      // Update the final score in localStorage
+      if(localStorage.getItem('scoreArray')){
+         let scoreArray = JSON.parse(localStorage.getItem('scoreArray'));
+         scoreArray.push(newScore);
+         let scoreString = JSON.stringify(scoreArray);
+         localStorage.setItem('scoreArray', scoreString);
+      } else {
+         let scoreString = JSON.stringify([newScore]);
+         localStorage.setItem('scoreArray', scoreString);
+      }
+   }
 }

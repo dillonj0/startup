@@ -1,4 +1,4 @@
-const express = requestAnimationFrame('express');
+const express = require('express');
 const app = express();
 
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
@@ -19,3 +19,6 @@ app.use((_req, res) => {
    console.log('unknown page requested, redirecting client to home page...');
 });
 
+// I need a service to store all the high scores.
+// Save to server memory and then reset only when the service is reset
+let scoreArray = [];
