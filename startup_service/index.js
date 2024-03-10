@@ -7,18 +7,6 @@ const port = process.argv.length > 2 ? process.argv[2] : 4000;
 app.use(express.json());
 app.use(express.static('public', {root: __dirname}));
 
-// Listen on port 4000 or a port specified when you run the file
-app.listen(port, () => {
-   console.log(`service backend listening on port ${port}`);
-});
-
-// Simon service uses this code to send you to home if you ask for
-//    some weird unknown page in your http request
-app.use((_req, res) => {
-   res.sendFile('index.html', {root: 'public'});
-   console.log('unknown page requested, redirecting client to home page...');
-});
-
 // I need a service to store all the high scores.
 // Save to server memory and then reset only when the service is reset
 var apiRouter = express.Router();
@@ -30,13 +18,25 @@ apiRouter.post('/score', (req, res) => {
    // take the information from the request and save it: save the score
    scoreArray = updateScores(req.body, scoreArray);
    res.send(scoreArray);
-   console.log('score sent to top score list.');
+   console.log('---> score sent to top score list.');
 });
 
 // Send the all time best scores back:
 apiRouter.get('/scores', (_req, res) => {
    res.send(scoreArray);
    console.log('Score array sent back to client');
+});
+
+// Simon service uses this code to send you to home if you ask for
+//    some weird unknown page in your http request
+app.use((_req, res) => {
+   res.sendFile('index.html', {root: 'public'});
+   console.log('unknown page requested, redirecting client to home page...');
+});
+
+// Listen on port 4000 or a port specified when you run the file
+app.listen(port, () => {
+   console.log(`service backend listening on port ${port}`);
 });
 
 let scoreArray = [];
@@ -56,7 +56,7 @@ function updateScores(newScore, scores) {
    // If the score wasn't better than any on the list, stick it at the end
    // -> Also covers the case where there are no high scores yet.
    if (!areThereScores){
-      console.log('incoming score is the first score: added to root.')
+      console.log('incoming score added to root.')
       scores.push(newScore);
    }
 
