@@ -44,6 +44,7 @@ function updateScores(newScore, scores) {
    let areThereScores = false;
    for (const [i, prevScore] of scoreArray.entries()) {
       if (newScore.score > prevScore.score) {
+         console.log('incoming score score added to the top 10!');
          // The score is better than the one at this point in the list
          // -> insert the score into the array
          scores.splice(i, 0, newScore);
@@ -55,12 +56,14 @@ function updateScores(newScore, scores) {
    // If the score wasn't better than any on the list, stick it at the end
    // -> Also covers the case where there are no high scores yet.
    if (!areThereScores){
+      console.log('incoming score is the first score: added to root.')
       scores.push(newScore);
    }
 
    // Sample code includes this so the high score data doesn't save an
    //    infinite number of high scores. Keep only top 10.
    if (scores.length > 10) {
+      console.log('score list truncated: top 10 only.');
       scores.length = 10;
    }
 

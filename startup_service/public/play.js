@@ -1,3 +1,5 @@
+console.log('play.js');
+
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~ PAGE SETUP ~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -19,9 +21,9 @@ function getPlayerName() {return localStorage.getItem('userName');}
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~ ACTUAL GAMEPLAY ~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const NUMBER_OF_ROUNDS = 5;
+const NUMBER_OF_ROUNDS = 2;
 const SEC_PER_ROUND = 3;
-const NEXT_ROUND_LUCK = 0.16;
+const NEXT_ROUND_LUCK = 1; //0.16;
 const DOUBLES_LUCK = 0.33;
 const MALLOW_SCALE = 10;
 const MIN_MALLOW_IMG_SIZE = 50;
@@ -46,6 +48,7 @@ async function playRounds(){
    document.getElementById('snatch-button').textContent = "Snatch now!";
    mallowCount = MALLOW_SCALE;
    round++;
+   console.log(`starting round ${round} of ${NUMBER_OF_ROUNDS}`);
    if(round==NUMBER_OF_ROUNDS){
       document.getElementById('next-round-button').textContent = "End Game";
    }
@@ -172,6 +175,7 @@ function randomText() {
 }
 
 async function updateScores() {
+   console.log('updating score');
    let newScore = new Object({score: playerScore, username: getPlayerName()});
    try {
       // attempt to get the top scores from the server
@@ -182,10 +186,9 @@ async function updateScores() {
       });
       const scores = await response.json();
       localStorage.setItem('scoreArray', JSON.stringify(scores));
-
-      // TODO: write server response in backend INDEX.JS
-
+      console.log('score sent to server');
    } catch {
+      console.log(`could not connect to score server: using local storage.`);
       // Update the final score in localStorage
       if(localStorage.getItem('scoreArray')){
          let scoreArray = JSON.parse(localStorage.getItem('scoreArray'));
