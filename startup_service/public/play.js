@@ -87,6 +87,10 @@ async function countDown() {
       }
       else{
          setTimeout( () => {
+
+            // TODO: Adapt the luck values from round to round so the
+            //    players know their odds :)
+
             let rollLuck = Math.random();
             console.log("Dice roll: " + rollLuck);
             if(rollLuck < NEXT_ROUND_LUCK){
