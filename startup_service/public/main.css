@@ -70,6 +70,7 @@ main div button {
    flex-direction: column;
    padding: 20px;
    animation: fade-slower 2s;
+   color: #aaaaaa;
 }
 
 .quote {

@@ -49,6 +49,15 @@ main {
    padding: 10px;
 }
 
+.luck-bar {
+   align-self: center;
+   height:10px;
+   width: 200px;
+   border: 1px solid #aaa;
+   text-align: center;
+   color: #fff;
+}
+
 .gameplay {
    padding: 10px;
    display: flex;

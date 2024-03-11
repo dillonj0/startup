@@ -23,10 +23,11 @@ function getPlayerName() {return localStorage.getItem('userName');}
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const NUMBER_OF_ROUNDS = 5;
 const SEC_PER_ROUND = 3;
-const NEXT_ROUND_LUCK = 0.16;
-const DOUBLES_LUCK = 0.33;
 const MALLOW_SCALE = 10;
 const MIN_MALLOW_IMG_SIZE = 50;
+const BASE_ROLL_LUCK = 0.1;
+const BASE_DOUBLES_LUCK = 0.33;
+const PER_ROUND_VARIATION = 0.05;
 
 const roundNumberElement = document.querySelector('#round-label');
 const secLeftElement = document.querySelector('.countdown-timer');
@@ -34,15 +35,20 @@ const mallowTotalElement = document.querySelector('.mallow-total');
 const mallowCountImage = document.getElementById('mallow-count-image');
 
 let round = 0;
+let roll = 1;
 let secondsLeft = SEC_PER_ROUND;
 let mallowCount = 0;
 let playerScore = 0; // IMPLEMENT A CLASS INSTEAD
+let next_round_luck = BASE_ROLL_LUCK;
+let doubles_luck = BASE_DOUBLES_LUCK;
 
 // Play a certain number of rounds
+updateLuckBar(next_round_luck,doubles_luck);
 playRounds();
 
 async function playRounds(){
    snatch_reset();
+   roll = 1;
    document.getElementById('next-round-button').disabled = true;
    document.getElementById('snatch-button').disabled = false;
    document.getElementById('snatch-button').textContent = "Snatch now!";
@@ -54,6 +60,9 @@ async function playRounds(){
    }
    if(round<=NUMBER_OF_ROUNDS){
       roundNumberElement.textContent = "Round " + round + " of " + NUMBER_OF_ROUNDS;
+      next_round_luck=BASE_ROLL_LUCK;
+      doubles_luck=BASE_DOUBLES_LUCK;
+      updateLuckBar(next_round_luck,doubles_luck);
       secondsLeft = SEC_PER_ROUND;
       secLeftElement.textContent = secondsLeft;
       console.log("round " + round);
@@ -87,25 +96,28 @@ async function countDown() {
       }
       else{
          setTimeout( () => {
-
-            // TODO: Adapt the luck values from round to round so the
-            //    players know their odds :)
+            roll++;
 
             let rollLuck = Math.random();
             console.log("Dice roll: " + rollLuck);
-            if(rollLuck < NEXT_ROUND_LUCK){
+            if(rollLuck < next_round_luck){
+               console.log(`***end round ${round}***`)
                document.getElementById('last-round-action').textContent = randomText() + " Round " + round + " ended.";
                endRound();
-            } else if (rollLuck < DOUBLES_LUCK) {
+            } else if (rollLuck < doubles_luck) {
                document.getElementById('last-round-action').textContent = "DOUBLE MALLOWS.";
                mallowCount *= 2;
                secondsLeft = SEC_PER_ROUND;
                countDown();
+               setLuck(roll);
+               updateLuckBar(next_round_luck,doubles_luck);
             } else {
                document.getElementById('last-round-action').textContent = "Added " + Math.round(rollLuck*MALLOW_SCALE) + " mallows.";
                mallowCount += Math.round(rollLuck*MALLOW_SCALE);
                secondsLeft = SEC_PER_ROUND;
                countDown();
+               setLuck(roll);
+               updateLuckBar(next_round_luck,doubles_luck);
             }
          }, 1000);
       }
@@ -170,7 +182,7 @@ function snatch(playerid) {
 
 function randomText() {
    let key = Math.random();
-   console.log('random text key: '+ key);
+   // console.log('random text key: '+ key);
    if(key < 0.2){return "Mallows stolen by goblins."}
    else if(key < 0.4){return "Mallows taken in for questioning."}
    else if(key < 0.6){return "Mallows eaten by monks."}
@@ -204,4 +216,29 @@ async function updateScores() {
          localStorage.setItem('scoreArray', scoreString);
       }
    }
+}
+
+// Change the luck values from round to round so that the players have something
+//    to gamble off of.
+function setLuck(roll_num){
+   console.log(`setting luck, roll #${roll_num}`);
+   next_round_luck = BASE_ROLL_LUCK + Math.random()*PER_ROUND_VARIATION*roll_num;
+   doubles_luck = next_round_luck+(1-next_round_luck)*Math.random()
+   console.log(`---> Next: ${next_round_luck}, Doubles: ${doubles_luck}`);
+}
+
+function updateLuckBar(failLuck, doubleLuck) {
+   const fadeMargin = 0.05;
+   const luckElement = document.querySelector(".luck-bar");
+
+   console.log('updating luck bar colors...');
+
+   // Calculate the edge values for the gradient
+   const failEdge = `${(failLuck * 100).toFixed(2)}%`;
+   const failAddEdge = `${((failLuck + fadeMargin) * 100).toFixed(2)}%`;
+   const addEdge2 = `${((1-(doubleLuck-failLuck)) * 100).toFixed(2)}%`;
+   const addDoubleEdge = `${(((1-(doubleLuck-failLuck)) + fadeMargin) * 100).toFixed(2)}%`;
+
+   // Update the size of the luck bar
+   luckElement.style.background=`linear-gradient(to right, red ${failEdge}, yellow ${failAddEdge}, yellow ${addEdge2},green ${addDoubleEdge},green 0)`;
 }
