@@ -73,3 +73,16 @@ For this deliverable I deployed the Simon HTML to my server and built the struct
 [x] Name and contact information displayed in the footer.
 [x] Code pushed to GitHub.
 [x] Code deployed to production environment.
+
+## Service Deliverable
+[x] Simon service deployed to production environment
+[x] Startup application updated so it implements a web service:
+- Backend server stores and hands over high scores to the client
+[x] Startup uses Express middleware
+[x] Endpoints proviced in backend
+[x] Frontend code calls endpoints to get and consider new high scores
+[x] Frontend code calls for third party services:
+- Inspirational quote at the bottom of the main page (if you're on desktop; hidden for small screens)
+[x] Debugged using node.js and browser dev tools
+[x] Periodic commits, notes.md updated, final version pushed to GitHub
+[x] Startup application live in production environment
