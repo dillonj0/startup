@@ -1,3 +1,5 @@
+console.log('about.js: service deliverable version');
+
 async function retrieveScores () {
    let dataString = '';
 
@@ -22,7 +24,8 @@ async function retrieveScores () {
 
    displayScores(dataString);
 }
-   function displayScores(dataString){
+
+function displayScores(dataString){
    if(dataString) {
       const tableBodyObject = document.querySelector('#scoreTable');
 

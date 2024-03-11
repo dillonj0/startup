@@ -21,9 +21,9 @@ function getPlayerName() {return localStorage.getItem('userName');}
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~ ACTUAL GAMEPLAY ~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const NUMBER_OF_ROUNDS = 2;
+const NUMBER_OF_ROUNDS = 5;
 const SEC_PER_ROUND = 3;
-const NEXT_ROUND_LUCK = 1; //0.16;
+const NEXT_ROUND_LUCK = 0.16;
 const DOUBLES_LUCK = 0.33;
 const MALLOW_SCALE = 10;
 const MIN_MALLOW_IMG_SIZE = 50;

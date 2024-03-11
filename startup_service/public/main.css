@@ -40,17 +40,7 @@ main {
    justify-content: center;
    animation: fade 1s;
 }
-@keyframes fade {
-   from {
-      opacity: 0;
-   }
-   50% {
-      opacity: 0;
-   }
-   to {
-      opacity: 1;
-   }
-}
+
 main img {display: none}
 
 input {
@@ -71,6 +61,19 @@ main div button {
    align-items: center;
    justify-content: center;
    min-width: 161px;
+}
+
+#quote {
+   justify-content: center;
+   align-items: center;
+   display: flex;
+   flex-direction: column;
+   padding: 20px;
+   animation: fade-slower 2s;
+}
+
+.quote {
+   font-style: italic;
 }
 
 footer {
@@ -97,6 +100,9 @@ footer {
       display: flex;
       opacity: 1;
    }
+   #quote {
+      display: none;
+   }
 }
 
 @media (max-height: 400px){
@@ -108,4 +114,28 @@ footer {
 @media (max-width: 700px){
    header a{display: none;}
    footer a{display:none;}
+}
+
+@keyframes fade {
+   from {
+      opacity: 0;
+   }
+   50% {
+      opacity: 0;
+   }
+   to {
+      opacity: 1;
+   }
+}
+
+@keyframes fade-slower {
+   from {
+      opacity: 0;
+   }
+   75% {
+      opacity: 0;
+   }
+   to {
+      opacity: 1;
+   }
 }
