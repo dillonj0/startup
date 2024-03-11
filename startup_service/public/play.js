@@ -137,6 +137,7 @@ function endGame(){
    console.log('ending game...');
    // Make the gameplay elements disappear
    document.querySelector('.gameplay').style.display = "none";
+   document.querySelector('.luck-bar').style.display = "none";
    document.getElementById('next-round-button').style.display = "none";
    roundNumberElement.style.display = "none";
    document.getElementById('last-round-action').textContent = " ";
