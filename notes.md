@@ -1,6 +1,49 @@
 # Web Programming
 ## Dillon Jensen
 
+### _18/FEB/2024_
+#### Storing passwords
+- Need to store in a database: can't keep it in server memory because if it goes down you lose everything.
+- Can't just put them in a database because if it's not encrypted you are super at risk.
+--> Anyone with permission can get in to everything
+##### Secure storage:
+- Hashing: some algorithm changes a user's password and the bungled version is stored: you don't know what the password is when you store it, but if they put in their password again the algorithm can tell you that it either matches or doesn't because the output is the same.
+--> Someone could manually compute every hash value corresponding to a bunch of common passwords. "Hash table attack"
+- Salted: generate some random text (salt) to append to the user password then store the hashed output with the salt key appended to the beginning so the backend can compare the whole code
+--> Greatly slows the speed of making a hash table because you have to compute a different table for every single generate salt value
+This is good but it can't be the authentication process for every backend call: it would take too long. More typically the authentication process is carried out once and then the user is given a token ID that is used to 
+
+### _11/FEB/2024_
+#### Notes about Startup Service:
+- Main issue I ran into was in listing service calls out of order in my index.js top level
+- In a future iteration I'll need to figure out how to update the other players' scores on the screen
+
+#### Environments
+- Don't do development in your production environment:
+-> Easy to write over changes with the next development push
+-> If something goes wrong it can be really really hard to figure out where the error came from
+- Different environments for different purposes:
+-> Might have a staging environment in addition to production etc.
+
+#### Deployment
+##### Our deployment model
+- Stop the program
+- Replace the code
+- Start the new version
+- Pray it works!
+
+##### More common models: rolling drain & replace, Canary, Blue/Green, A/B
+- Have to have multiple servers balancing load, lets you update your software without any downtime:
+--> Feed requests to several different servers. When you want to update, stop sending requests to one server until it's empty. Load new code. Continue until all servers are running new code only.
+--> Slowly transition over and make sure there are no errors before asking for more new traffic
+--> Blue-green would be like deploy code on one set of servers, do your staging on the other and then pass back and forth between which one is the publicly-accessed 
+--> A/B would be to direct some traffic to a slightly different version of the same product to see if they have some sort of better experience, i.e., did they click through a certain version of the ad more often?
+
+#### Uploading files
+- Front end: File input
+- Back end: npm Multer service
+--> I didn't get my example running, but it worked great in Dad's demo haha
+
 ### _06/FEB/2024_
 Make sure Startup_service is configured to listen on port 4000 instead of 3000 or I'll be in conflict with Simon
 
