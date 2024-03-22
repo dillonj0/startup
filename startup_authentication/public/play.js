@@ -131,6 +131,8 @@ function endRound(){
       document.getElementById('snatch-button').textContent = "😵";
    }
    mallowTotalElement.textContent = "0";
+   mallowCountImage.style.height = 0;
+   mallowCountImage.style.width = 0;
 }
 
 function endGame(){
