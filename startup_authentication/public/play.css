@@ -44,6 +44,12 @@ main {
    text-align: center;
 }
 
+#mallow-count-image {
+   max-width: 300px;
+   max-height: 300px;
+   transition: width 1s, height 1s;
+}
+
 #round-label {
    text-align: center;
    padding: 10px;

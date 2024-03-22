@@ -100,7 +100,7 @@ async function countDown() {
 
             let rollLuck = Math.random();
             console.log("Dice roll: " + rollLuck);
-            if(rollLuck < next_round_luck){
+            if(rollLuck < next_round_luck || everyoneHasSnatched()){
                console.log(`***end round ${round}***`)
                document.getElementById('last-round-action').textContent = randomText() + " Round " + round + " ended.";
                endRound();
@@ -182,6 +182,11 @@ function snatch(playerid) {
 }
 
 function randomText() {
+   // if all players have snatched, say that instead of random explanation
+   if (everyoneHasSnatched()) {
+      return "All players have snatched."
+   }
+
    let key = Math.random();
    // console.log('random text key: '+ key);
    if(key < 0.2){return "Mallows stolen by goblins."}
@@ -242,4 +247,12 @@ function updateLuckBar(failLuck, doubleLuck) {
 
    // Update the size of the luck bar
    luckElement.style.background=`linear-gradient(to right, red ${failEdge}, yellow ${failAddEdge}, yellow ${addEdge2},green ${addDoubleEdge},green 0)`;
+}
+
+function everyoneHasSnatched () {
+
+   // TODO: Once we make the game multi-player, I need to
+   //       actually check if the other players have snatched.
+
+   return document.getElementById('snatch-button').disabled;
 }
