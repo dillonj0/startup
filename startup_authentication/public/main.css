@@ -43,24 +43,17 @@ main {
 
 main img {display: none}
 
-input {
-   border-radius: 5px;
-   margin: 3px;
-}
-
-main div {
+.login-box {
+   display: flex;
    flex-direction: column;
    align-items: center;
    justify-content: center;
 }
 
 main div button {
-   display: flex;
-   flex-direction: column;
-   margin: 15px;
+   margin: 5px;
    align-items: center;
    justify-content: center;
-   min-width: 161px;
 }
 
 #quote {
