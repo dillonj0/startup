@@ -30,12 +30,15 @@ function usernameAndPasswordCheck(){
 
 function logout() {
    localStorage.removeItem('userName');
-   updateAuthenticationElements();
+   // updateAuthenticationElements();
    window.location.href = 'index.html';
 }
 
 async function login() {
-   if(usernameAndPasswordCheck()){
+   if (authenticated()) {
+      window.location.href='join.html';
+   }
+   else if(usernameAndPasswordCheck()){
       loginOrCreate(`/api/auth/login`)
    }
 }
