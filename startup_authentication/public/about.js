@@ -8,6 +8,9 @@ async function retrieveScores () {
       const response = await fetch('/api/scores');
       dataString = await response.json();
 
+      // Sort scores from greatest to least
+      dataString.sort((a, b) => b.score - a.score);
+
       // Also save to local storage
       localStorage.setItem('scoreArray', JSON.stringify(dataString));
       console.log('got scores from server');

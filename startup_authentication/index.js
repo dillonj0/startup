@@ -7,6 +7,7 @@ const app = express();
 const client = new MongoClient(url);
 const db = client.db('startup');
 const collection = db.collection('users');
+const scoreCollection = db.collection('scores');
 
 //verify that you can connect to the database:
 async function connectToDatabase() {
@@ -79,19 +80,31 @@ apiRouter.post('/auth/login', async (req, res) => {
 });
 
 // process a request that submits a new score
-apiRouter.post('/score', (req, res) => {
-   console.log('in apiRouter.post...');
-   // take the information from the request and save it: save the score
-   scoreArray = updateScores(req.body, scoreArray);
-   res.send(scoreArray);
-   console.log('---> score sent to top score list.');
+apiRouter.post('/score', async (req, res) => {
+   try {
+      const { username, score } = req.body;
+      // Insert the score into the scores collection
+      await scoreCollection.insertOne({ username, score });
+      res.status(201).json({ message: 'Score added successfully' });
+   } catch (error) {
+      console.error('Error adding score:', error);
+      res.status(500).json({ message: 'Failed to add score' });
+   }
 });
 
+
 // Send the all time best scores back:
-apiRouter.get('/scores', (_req, res) => {
-   res.send(scoreArray);
-   console.log('Score array sent back to client');
+apiRouter.get('/scores', async (_req, res) => {
+   try {
+      // Retrieve scores from the scores collection
+      const scores = await scoreCollection.find().toArray();
+      res.status(200).json(scores);
+   } catch (error) {
+      console.error('Error fetching scores:', error);
+      res.status(500).json({ message: 'Failed to fetch scores' });
+   }
 });
+
 
 // Simon service uses this code to send you to home if you ask for
 //    some weird unknown page in your http request
@@ -104,39 +117,3 @@ app.use((_req, res) => {
 app.listen(port, () => {
    console.log(`service backend listening on port ${port}`);
 });
-
-
-
-////////////////////////////////////////////
-// Old way of sending and retrieving scores
-////////////////////////////////////////////
-let scoreArray = [];
-function updateScores(newScore, scores) {
-   let areThereScores = false;
-   for (const [i, prevScore] of scoreArray.entries()) {
-      if (newScore.score > prevScore.score) {
-         console.log('incoming score score added to the top 10!');
-         // The score is better than the one at this point in the list
-         // -> insert the score into the array
-         scores.splice(i, 0, newScore);
-         areThereScores = true;
-         break;
-      }
-   }
-
-   // If the score wasn't better than any on the list, stick it at the end
-   // -> Also covers the case where there are no high scores yet.
-   if (!areThereScores){
-      console.log('incoming score added to root.')
-      scores.push(newScore);
-   }
-
-   // Sample code includes this so the high score data doesn't save an
-   //    infinite number of high scores. Keep only top 10.
-   if (scores.length > 10) {
-      console.log('score list truncated: top 10 only.');
-      scores.length = 10;
-   }
-
-   return scores;
-}

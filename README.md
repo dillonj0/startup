@@ -92,5 +92,5 @@ For this deliverable I deployed the Simon HTML to my server and built the struct
 [x] Existing users' credentials are encrypted and stored in MongoDB
 [x] Existing users are authenticated by comparing the credentials against those stored in the database.
 [x] You cannot play the game without logging in, but anyone can see the high scores. (High scores are in the about page.)
-[x] Top 10 high scores are still stored on the production server rather than the database, but I felt like this was better because the only reason I would release significant updates to the site would be because the game changes---I don't want to make users compare scores if the point system changes over time.
+[x] Top scores are stored in MongoDB -- this means I don't just save the top 10 anymore, because I'm not restricted by the size of the server memory.
 [x] Simon and Startup deployed to production environment.
