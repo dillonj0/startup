@@ -13,3 +13,16 @@ document.addEventListener('DOMContentLoaded', function(){
 function getPlayerName() {
    return localStorage.getItem('userName');
 }
+
+function isAuthenticated(){
+   username = localStorage.getItem("userName");
+   if(username){
+      return true;
+   }
+   return false;
+}
+
+if(!isAuthenticated()){
+   window.location.href = 'index.html';
+   console.log('Not authenticated!!!');
+}
