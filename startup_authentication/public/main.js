@@ -23,9 +23,7 @@ function usernameAndPasswordCheck(){
 
 function logout() {
    localStorage.removeItem('userName');
-   fetch(`/api/logout`, {
-      method: 'delete',
-   }).then(() => updateAuthenticationElemnents());
+   updateAuthenticationElemnents();
 }
 
 async function login() {
@@ -57,7 +55,8 @@ async function loginOrCreate(endpoint) {
       console.log('logged in as ' + username);
       window.location.href='join.html';
    } else {
-      alert('There was an error logging you in. Please verify your username and password, or create a new account.')
+      alert('Please verify your username and password, or create a new account. \
+             If you are attempting to make a new account, your username may already be in use.');
    }
 }
 

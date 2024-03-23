@@ -1,58 +1,60 @@
 const express = require('express');
-const DB = require('./database.js');
 const bcrypt = require('bcrypt');
-const cookieParser  =require('cookie-parser');
+const config = require('./dbConfig.json');
+const {MongoClient} = require('mongodb');
+const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
 const app = express();
+const client = new MongoClient(url);
+const db = client.db('startup');
+const collection = db.collection('users');
 
+//verify that you can connect to the database:
+async function connectToDatabase() {
+   try {
+       await client.connect();
+       console.log('Connected to MongoDB');
+
+       return db;
+   } catch (err) {
+       console.error('Error connecting to MongoDB:', err);
+   }
+}
+
+// Specify the client communication port
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
 // Use json body parsing. Allow access to the front-end content folder.
 app.use(express.json());
 app.use(express.static('public', {root: __dirname}));
 
-// Use cookie parser middleware for parsing tokens for authentication
-app.use(cookieParser());
-
 // I need a service to store all the high scores.
 // Save to server memory and then reset only when the service is reset
 var apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
-// user asks to create a new user
+// register a new user
 apiRouter.post('/auth/create', async (req, res) => {
-   if (await DB.getUser(req.body.username)) {
-      res.status(409).send({ msg: 'Tried to create a new account for an existing user :('});
-   } else {
-      // This username is not on record: create a new user
-      const user = await DB.createUser(req.body.email, req.body.password);
+   const {username, password} = req.body;
 
-      // set the cookie
-      setAuthCookie(res, user.token);
+   const db = await connectToDatabase();
+   const collection = db.collection('users');
 
-      res.send({
-         id: user._id,
-      });
+   // check if the username already exists
+   if(await collection.findOne({ username })){
+      return res.status(400).json({message: "This username is already in use."});
    }
+
+   // hash the password and store the information i nthe database:
+   const hashedPassword = await bcrypt.hash(password, 10);
+   await collection.insertOne({ username, password: hashedPassword});
+
+   res.status(201).json({message: 'new user registration success'});
+   console.log('new user ' + username + ' registered');
 });
 
-// When I incorporate logout functionality, need a way to delete the token
-apiRouter.delete('/auth/logout', (_req, res) => {
-   res.clearCookie(authCookieName);
-   res.status(204).end();
-});
-
-// user calls login function: authorize or not
+// authenticate an existing user's login credentials
 apiRouter.post('/auth/login', async (req, res) => {
-   const user = await DB.getUser(req.body.username);
-   if (user) {
-      if (await bcrypt.compare(req.body.password, user.password)) {
-         setAuthCookie(res, user.token);
-         res.send({id: user.id});
-         return;
-      }
-   } else {
-      res.status(401).send({ msg: 'Unauthorized!'});
-   }
+   console.log("we don't know how to log in yet.")
 });
 
 // process a request that submits a new score
@@ -77,20 +79,16 @@ app.use((_req, res) => {
    console.log('unknown page requested, redirecting client to home page...');
 });
 
-// setAuthCookie in the HTTP response
-function setAuthCookie(res, authToken) {
-   res.cookie(authCookieName, authToken, {
-     secure: true,
-     httpOnly: true,
-     sameSite: 'strict',
-   });
-}
-
 // Listen on port 4000 or a port specified when you run the file
 app.listen(port, () => {
    console.log(`service backend listening on port ${port}`);
 });
 
+
+
+////////////////////////////////////////////
+// Old way of sending and retrieving scores
+////////////////////////////////////////////
 let scoreArray = [];
 function updateScores(newScore, scores) {
    let areThereScores = false;
