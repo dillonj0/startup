@@ -12,7 +12,14 @@
 function usernameAndPasswordCheck(){
    if(document.querySelector('#userPassword').value !== '' &&
       document.querySelector('#userName').value !== '') {
-      return true;
+      const alphanumericRegex = /^[a-zA-Z0-9]+$/;
+      if(alphanumericRegex.test(document.querySelector('#userName').value)){
+         // Make sure the username isn't malicious code: alphanumeric only
+         return true;
+      }
+      console.log('Username contains invalid characters.')
+      alert('Usernames can contain only alphanumeric characters. (Letters and numbers only.)')
+      return false;
    }
    else {
       console.log('User did not provide username and/or password.');
@@ -23,7 +30,8 @@ function usernameAndPasswordCheck(){
 
 function logout() {
    localStorage.removeItem('userName');
-   updateAuthenticationElemnents();
+   updateAuthenticationElements();
+   window.location.href = 'index.html';
 }
 
 async function login() {
@@ -55,8 +63,7 @@ async function loginOrCreate(endpoint) {
       console.log('logged in as ' + username);
       window.location.href='join.html';
    } else {
-      alert('Please verify your username and password, or create a new account. \
-             If you are attempting to make a new account, your username may already be in use.');
+      alert('Please verify your username and password, or create a new account. If you are attempting to make a new account, your username may already be in use.');
    }
 }
 
@@ -87,7 +94,7 @@ function authenticated() {
    return false;
 }
 
-function updateAuthenticationElemnents(){
+function updateAuthenticationElements(){
    if(authenticated()){
       console.log('logged in as ' + localStorage.getItem('userName'));
       document.querySelector('.logged-in-box').style.display = 'flex';
@@ -97,8 +104,9 @@ function updateAuthenticationElemnents(){
       console.log('not logged in');
       document.querySelector('.login-box').style.display = 'flex';
       document.querySelector('.logged-in-box').style.display = 'none';
+      document.getElementById('player-name').textContent = '';
    }
 }
 
 displayQuote();
-updateAuthenticationElemnents();
+updateAuthenticationElements();

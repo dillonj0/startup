@@ -54,7 +54,28 @@ apiRouter.post('/auth/create', async (req, res) => {
 
 // authenticate an existing user's login credentials
 apiRouter.post('/auth/login', async (req, res) => {
-   console.log("we don't know how to log in yet.")
+   const {username, password} = req.body;
+   
+   // See if the user exists in the database
+   try {
+      const user = await collection.findOne({ username });
+      if (user) {
+         // see if the password matches the hatched password
+         const passwordsMatch = await bcrypt.compare(password, user.password);
+         if(passwordsMatch) {
+            // Authentication success!
+            res.status(200).json({ message: 'Authentication successful!' });
+         } else {
+            // Password is incorrect.
+            res.status(401).json({ message: 'Invalid password.' });
+         }
+      } else {
+         // username is invalid
+         res.status(404).json({ message: 'user not found' });
+      }
+   } catch (error) {
+      res.status(500).json({ message: 'Internal server error' });
+   }
 });
 
 // process a request that submits a new score
