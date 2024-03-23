@@ -86,3 +86,11 @@ For this deliverable I deployed the Simon HTML to my server and built the struct
 [x] Debugged using node.js and browser dev tools
 [x] Periodic commits, notes.md updated, final version pushed to GitHub
 [x] Startup application live in production environment
+
+## Login Deliverable
+[x] New users can be added using credentials on the home page.
+[x] Existing users' credentials are encrypted and stored in MongoDB
+[x] Existing users are authenticated by comparing the credentials against those stored in the database.
+[x] You cannot play the game without logging in, but anyone can see the high scores. (High scores are in the about page.)
+[x] Top 10 high scores are still stored on the production server rather than the database, but I felt like this was better because the only reason I would release significant updates to the site would be because the game changes---I don't want to make users compare scores if the point system changes over time.
+[x] Simon and Startup deployed to production environment.
