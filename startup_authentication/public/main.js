@@ -4,10 +4,8 @@
    //    user log back in every time they go to the home page
    const username = localStorage.getItem('userName');
    if (username) {
-      console.log('user is already logged in as' + username);
-
-      // TODO: fix this so the user doesn't have to log in again
-
+      console.log('user is already logged in as ' + username);
+      document.getElementById('userName').value = username;
    }
 })();
 
@@ -23,6 +21,13 @@ function usernameAndPasswordCheck(){
    }
 }
 
+function logout() {
+   localStorage.removeItem('userName');
+   fetch(`/api/logout`, {
+      method: 'delete',
+   }).then(() => updateAuthenticationElemnents());
+}
+
 async function login() {
    if(usernameAndPasswordCheck()){
       loginOrCreate(`/api/auth/login`)
@@ -31,7 +36,7 @@ async function login() {
 
 async function createUser() {
    if(usernameAndPasswordCheck()){
-      loginOrCreate(`/api/auth/createUser`)
+      loginOrCreate(`/api/auth/create`)
    }
 }
 
@@ -49,11 +54,10 @@ async function loginOrCreate(endpoint) {
 
    if (response.ok) {
       localStorage.setItem('userName', username);
-      console.log('logged in as' + username);
+      console.log('logged in as ' + username);
       window.location.href='join.html';
    } else {
-      const body = await response.json();
-      
+      alert('There was an error logging you in. Please verify your username and password, or create a new account.')
    }
 }
 
@@ -76,4 +80,26 @@ function displayQuote(data) {
       });
 }
 
+function authenticated() {
+   username = localStorage.getItem("userName");
+   if(username){
+      return true;
+   }
+   return false;
+}
+
+function updateAuthenticationElemnents(){
+   if(authenticated()){
+      console.log('logged in as ' + localStorage.getItem('userName'));
+      document.querySelector('.logged-in-box').style.display = 'flex';
+      document.querySelector('.login-box').style.display = 'none';
+      document.getElementById('player-name').textContent = localStorage.getItem("userName");
+   } else {
+      console.log('not logged in');
+      document.querySelector('.login-box').style.display = 'flex';
+      document.querySelector('.logged-in-box').style.display = 'none';
+   }
+}
+
 displayQuote();
+updateAuthenticationElemnents();
