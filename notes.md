@@ -1,6 +1,66 @@
 # Web Programming
 ## Dillon Jensen
 
+### _25/FEB/2024_
+#### Security
+Soooo expensive!!!! Consider the collateral damage:
+- If you lose contact with your clients, you lose a ton of money, but the clients are destabilized too;
+- People can literally die because of the ripple effect; crippling debt, loss of assets, total supplychain disruption
+
+"As disciples of Christ, this should bother us a lot!" - Lee Jensen, 2024
+- It's irresponsible _not_ to take security into account. We are dealing with people's lives.
+
+1. Broken access control:
+- Important to actually reference tokens and verify that the person presenting their username is actually the account owner:
+--> Other wise you can just bypass everything with front-end dev tools and URL bypass strategies.
+2. Cryptographic Failures:
+- Data sent as clear text
+- Data not encrypted at rest or transit
+--> Even data that's hard to get to should never be stored except in an encrypted format.
+- Weak cryptography
+--> bcrypt with intensity of 1
+- Misused cryptography:
+--> No salt, 
+
+3. Code Insertion:
+- Must sanitize inputs or you could end up getting a person's commands executing on your own account.
+
+4. Insecure Design:
+--> If people within the company aren't aware of best practices, potential weaknesses, you end up with a huge loss.
+--> Storing all your data in one place
+--> Unlimited trial accounts
+--> Single layer of defense
+
+5. Security Misconfiguration
+- Exposure of development information
+--> If someone gets information you weren't intending to lend, they have an edge against your security
+- Using default configurations
+--> Imagine if everyone set up their internet without changing their default passwords.
+- Unnecessary features installed
+--> No way you can keep an eye on everything, so why have all kinds of things installed if you're not actually using them?
+- System not hardened
+--> Example would be where any IP address can get access to your MongoDB: reduce access as much as possible!
+
+6. Vulnerable components
+- Installing packages you don't need/use, importing blindly without verifying that it's actually a trusted source.
+- Out-of-date software may have long-standing vulnerabilities that people know about. Remove or update to a secure version!
+
+7. ID and authentication failures:
+- Allowing users to have weak passwords
+- Poor process for recovering credentials
+- Infinite authentication tokens
+- Credentials accessible from the URL wahp wahp
+
+8. Software integrity failures
+- Using unverified content-delivery network, i.e. bootstrap or npm
+
+9. Logging failures
+- If someone gets into your system and you don't have ways to track them un-deleteably, you're going to have a bad time.
+
+10. Something else
+
+Last but not least, be aware that in a browser setting basically the only thing you can trust is the host name. Essentially everything else can be made to be deceptive using javascript and formatting tools.
+
 ### _18/FEB/2024_
 #### Storing passwords
 - Need to store in a database: can't keep it in server memory because if it goes down you lose everything.
