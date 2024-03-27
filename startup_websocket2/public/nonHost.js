@@ -52,3 +52,5 @@ function roundReset() {
    document.getElementById('snatch-button').disabled = false;
    document.getElementById('snatch-button').textContent = "Snatch now!";
 }
+
+// add websocket code: when we get the signal to play, we play
