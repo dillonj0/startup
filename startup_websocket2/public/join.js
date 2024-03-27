@@ -27,3 +27,23 @@ if(!isAuthenticated()){
    window.location.href = 'index.html';
    console.log('Not authenticated!!!');
 }
+
+async function newGame(){
+   // create a new game, redirect to lobby
+   console.log('creating new game');
+   host = getPlayerName();
+   try {
+      await fetch('/api/createGame', {
+         method: 'POST',
+         headers: {'content-type': 'application/json'},
+         body: JSON.stringify({hostName: host})
+      });
+      console.log('created new game!')
+   } catch (error) {
+      console.log('could not create new game:', error);
+   }
+}
+
+function joinGame(gameID){
+   // join an existing game, redirect to lobby
+}

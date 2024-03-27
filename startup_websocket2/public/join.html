@@ -31,8 +31,8 @@
          <span id="player-name" class="second_smallest"></span>
          <p class="second_smallest">Choose an open game to join.</p>
          <table id="game-list">
-            <div>You need to rework this part so it's automatically populated</div>
-            <!-- <tr>
+            <div style="color: red; font-weight: bolder;">You need to rework this part so it's automatically populated</div>
+            <tr>
                <th class="t_header">Host name</th>
                <th class="t_header">Available seats</th>
                <th class="t_header">Status</th>
@@ -41,29 +41,10 @@
                <td class="t_header">Elmo</td>
                <td class="t_header">0/15</td>
                <td class="t_header">Playing</td>
-               <td class="t_header"><button disabled class="btn btn-outline-failure">closed</button></td>
+               <td class="t_header"><button onclick='joinGame(1)' class="btn btn-outline-secondary">join</button></td>
             </tr>
-            <tr>
-               <td class="t_header">LeeSJensen</td>
-               <td class="t_header">0/15</td>
-               <td class="t_header">Playing</td>
-               <td class="t_header"><button disabled class="btn btn-outline-failure">closed</button></td>
-            </tr>
-            <tr>
-               <td class="t_header">QueVivasBien</td>
-               <td class="t_header">6/15</td>
-               <td class="t_header">In lobby</td>
-               <td class="t_header"><a href = "play.html"><button class="btn btn-outline-success">join</button></a></td>
-            </tr>
-            <tr>
-               <td>La Mugre</td>
-               <td>14/15</td>
-               <td>In lobby</td>
-               <td><a href = "play.html"><button class="btn btn-outline-success">join</button></a></td>
-            </tr> -->
          </table>
-         <a href = "play.html"><button class="btn btn-outline-secondary">create a new game</button></a>  
-      </main>
+         <button class="btn btn-outline-secondary" onclick="newGame()">create a new game</button>       </main>
       <br>
       <hr />
       <footer>

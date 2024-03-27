@@ -92,7 +92,6 @@ apiRouter.post('/score', async (req, res) => {
    }
 });
 
-
 // Send the all time best scores back:
 apiRouter.get('/scores', async (_req, res) => {
    try {
@@ -102,6 +101,19 @@ apiRouter.get('/scores', async (_req, res) => {
    } catch (error) {
       console.error('Error fetching scores:', error);
       res.status(500).json({ message: 'Failed to fetch scores' });
+   }
+});
+
+// Create a new game
+apiRouter.post('/createGame', async (req, res) => {
+   const { hostName } = req.body;
+   console.log('trying to make a game with hostname ' + hostName);
+   try {
+      await createNewGame(hostName);
+      res.status(200).json({message: 'game created successfully'});
+   } catch (error) {
+      console.log('error creating new game:', error);
+      res.status(500).json({message: 'error creating new game'});
    }
 });
 
@@ -117,3 +129,17 @@ app.use((_req, res) => {
 app.listen(port, () => {
    console.log(`service backend listening on port ${port}`);
 });
+
+let openGames = [];
+async function createNewGame(hostName) {
+   return new Promise((resolve, reject) => {
+      if (openGames.includes(hostName)) {
+         console.log(hostName + ' already has an open game :(');
+         reject('Game already exists'); // Reject with an error message
+      } else {
+         openGames.push(hostName);
+         console.log('--> new game created successfully')
+         resolve();
+      }
+   });
+}
