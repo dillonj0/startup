@@ -33,12 +33,17 @@ async function newGame(){
    console.log('creating new game');
    host = getPlayerName();
    try {
-      await fetch('/api/createGame', {
+      const response = await fetch('/api/createGame', {
          method: 'POST',
          headers: {'content-type': 'application/json'},
          body: JSON.stringify({hostName: host})
       });
-      console.log('created new game!')
+      if (response.status === 409){
+         // alert the user that they game is already made
+         alert('Another game is already live with the same host name.')
+      } else {
+         console.log('created a new game!');
+      }
    } catch (error) {
       console.log('could not create new game:', error);
    }
