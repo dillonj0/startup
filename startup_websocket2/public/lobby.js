@@ -4,6 +4,11 @@ function AddPlayerName() {
    let usernameString = getPlayerName();
    playerNameElement.textContent = usernameString;
    console.log("set player name");
+
+   const hostNameElement = document.querySelector('#host-name');
+   let hostName = getHostName();
+   hostNameElement.textContent = hostName;
+   console.log('set host name');
 }
 
 document.addEventListener('DOMContentLoaded', function(){
@@ -13,6 +18,10 @@ document.addEventListener('DOMContentLoaded', function(){
 
 function getPlayerName() {
    return localStorage.getItem('userName');
+}
+
+function getHostName() {
+   return 'lobby.js getHostName(): FUNCTION DOES NOT GET HOST NAME.';
 }
 
 function isAuthenticated(){

@@ -32,12 +32,14 @@ header {
    justify-content: space-around;
 }
 
-main table {
-   display: flex;
-   flex: 0.5;
-   align-items: center;
-   justify-content: center;
+#host-name {
+   margin: 10px;
 }
+
+button {
+   margin: 10px !important;
+}
+
 tr{
    /* display: flex; */
    /* flex-direction: row; */
@@ -64,7 +66,7 @@ main {
 
 span {
    font-weight: bold;
-   margin: 15px;
+   margin: 10px;
 }
 
 @keyframes fade {
