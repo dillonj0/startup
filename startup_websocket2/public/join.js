@@ -6,11 +6,6 @@ function AddPlayerName() {
    console.log("set player name");
 }
 
-document.addEventListener('DOMContentLoaded', function(){
-   AddPlayerName();
-   console.log('setting player name');
-})
-
 function getPlayerName() {
    return localStorage.getItem('userName');
 }
@@ -23,9 +18,48 @@ function isAuthenticated(){
    return false;
 }
 
-if(!isAuthenticated()){
-   window.location.href = 'index.html';
-   console.log('Not authenticated!!!');
+async function PopulateGameList(){
+   try {
+      const response = await fetch('/api/gameList');
+      const gameListObject = await response.json();
+      const gameList = Object.values(gameListObject);
+      console.log(gameList);
+      const gameTable = document.getElementById('game-list');
+      gameList.forEach(entry => {
+         const row = document.createElement('tr');
+         row.className = 'game-row';
+         const hostNameEl = document.createElement('td');
+         hostNameEl.id = 'game-row-el';
+         const statusEl = document.createElement('td');
+         statusEl.id = 'game-row-el';
+         const joinButtontdEl = document.createElement('td');
+         const joinButtonEl = document.createElement('button');
+         joinButtonEl.className = 'btn btn-outline-secondary';
+         joinButtonEl.id = 'game-row-el';
+
+         // Set inner text for each element    
+         // Disable button if playing  
+         hostNameEl.textContent = entry.hostName;
+         statusEl.textContent = entry.status;
+         if(entry.status === 'open'){
+            joinButtonEl.innerText = 'join';
+            joinButtonEl.onclick = () => joinGame(entry.hostName);
+         } else {
+            joinButtonEl.innerText = 'playing';
+            joinButtonEl.disabled = true;
+         }
+
+         row.appendChild(hostNameEl);
+         row.appendChild(statusEl);
+         joinButtontdEl.appendChild(joinButtonEl);
+         row.appendChild(joinButtontdEl);
+
+         gameTable.appendChild(row);
+      });
+   } catch (error) {
+      console.log(error);
+      alert('Could not connect to server. Some functionality may be offline.')
+   }
 }
 
 async function newGame(){
@@ -51,6 +85,20 @@ async function newGame(){
    }
 }
 
-function joinGame(gameID){
+function joinGame(hostName){
    // join an existing game, redirect to lobby
+   console.log('joining game with hostname', hostName);
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+   console.log('setting player name');
+   AddPlayerName();
+   
+   console.log('retrieving open games:');
+   PopulateGameList();
+})
+
+if(!isAuthenticated()){
+   window.location.href = 'index.html';
+   console.log('Not authenticated!!!');
 }

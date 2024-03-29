@@ -119,6 +119,7 @@ apiRouter.post('/createGame', async (req, res) => {
 
 // Get a list of active games
 apiRouter.get('/gameList', async (req,res) => {
+   console.log('Open games: ', openGames);
    res.send(openGames);
    console.log('Game list sent back to client');
 });
@@ -142,7 +143,7 @@ app.listen(port, () => {
 let openGames = [];
 async function createNewGame(hostName) {
    return new Promise((resolve, reject) => {
-      if (openGames.some(game => game.hostname === hostName)) {
+      if (openGames.some(game => game.hostName === hostName)) {
          console.log(hostName + ' already has an open game :(');
          reject('Game already exists'); // Reject with an error message
       } else {

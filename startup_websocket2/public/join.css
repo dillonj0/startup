@@ -32,12 +32,23 @@ header {
    justify-content: space-around;
 }
 
-main table {
+.game-list {
    display: flex;
-   flex: 0.5;
+   flex-direction: column;
    align-items: center;
-   justify-content: center;
 }
+
+.game-row{
+   align-items: center;
+}
+
+#game-row-el{
+   margin: 10px;
+   padding-left: 5px;
+   padding-right: 5px;
+   align-self: center;
+}
+
 tr{
    /* display: flex; */
    /* flex-direction: row; */
