@@ -88,6 +88,8 @@ async function newGame(){
 function joinGame(hostName){
    // join an existing game, redirect to lobby
    console.log('joining game with hostname', hostName);
+   localStorage.setItem('hostName', hostName);
+   window.location.href = 'lobby.html';
 }
 
 document.addEventListener('DOMContentLoaded', function(){

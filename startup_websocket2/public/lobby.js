@@ -13,8 +13,8 @@ function AddPlayerName() {
 }
 
 document.addEventListener('DOMContentLoaded', function(){
-   AddPlayerName();
    console.log('setting player name');
+   AddPlayerName();
 })
 
 function getPlayerName() {
@@ -22,7 +22,7 @@ function getPlayerName() {
 }
 
 function getHostName() {
-   return localStorage.getItem('HostName');
+   return localStorage.getItem('hostName');
 }
 
 function isAuthenticated(){
@@ -34,17 +34,19 @@ function isAuthenticated(){
 }
 
 function isHost() {
-   console.log('in lobby isHost(): function is unwritten and always returns true.')
-   // 
-   // TODO: call to backend and ask if you're the host
-   //
-   return true;
+   const hostName = getHostName();
+   const playerName = getPlayerName();
+   console.log('Player name: ' + playerName);
+   console.log('Host name: ' + hostName);
+   
+   return hostName == playerName;
 }
 
 if(!isAuthenticated()){
    window.location.href = 'index.html';
    console.log('Not authenticated!!!');
 } else if (isHost()) {
+   console.log('is host');
    const startGameElement = document.querySelector('#start-button');
    startGameElement.style.display = 'flex';
 } else {
@@ -55,5 +57,9 @@ if(!isAuthenticated()){
 function play(){
    // send out websocket note to start the game
    console.log('playing game');
-   window.location.href = 'play.html';
+   if(isHost()){
+      window.location.href = 'play.html';
+   } else {
+      window.location.href = 'nonHost.html';
+   }
 }
