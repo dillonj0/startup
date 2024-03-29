@@ -117,6 +117,12 @@ apiRouter.post('/createGame', async (req, res) => {
    }
 });
 
+// Get a list of active games
+apiRouter.get('/gameList', async (req,res) => {
+   res.send(openGames);
+   console.log('Game list sent back to client');
+});
+
 
 // Simon service uses this code to send you to home if you ask for
 //    some weird unknown page in your http request
@@ -130,14 +136,18 @@ app.listen(port, () => {
    console.log(`service backend listening on port ${port}`);
 });
 
+// An array of game objects: {hostName, status}
+//    hostName inherited from whoever made the game
+//    status is "open" until play starts, then "playing" until game is closed
 let openGames = [];
 async function createNewGame(hostName) {
    return new Promise((resolve, reject) => {
-      if (openGames.includes(hostName)) {
+      if (openGames.some(game => game.hostname === hostName)) {
          console.log(hostName + ' already has an open game :(');
          reject('Game already exists'); // Reject with an error message
       } else {
-         openGames.push(hostName);
+         let newGameObject = {hostName: hostName, status: 'open'};
+         openGames.push(newGameObject);
          console.log('--> new game created successfully')
          resolve();
       }

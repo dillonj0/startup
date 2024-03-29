@@ -7,7 +7,8 @@ function AddPlayerName() {
 
    const hostNameElement = document.querySelector('#host-name');
    let hostName = getHostName();
-   hostNameElement.textContent = hostName;
+   let hostText = hostName + ' is the host.'
+   hostNameElement.textContent = hostText;
    console.log('set host name');
 }
 
@@ -21,7 +22,7 @@ function getPlayerName() {
 }
 
 function getHostName() {
-   return 'lobby.js getHostName(): FUNCTION DOES NOT GET HOST NAME.';
+   return localStorage.getItem('HostName');
 }
 
 function isAuthenticated(){
@@ -33,6 +34,10 @@ function isAuthenticated(){
 }
 
 function isHost() {
+   console.log('in lobby isHost(): function is unwritten and always returns true.')
+   // 
+   // TODO: call to backend and ask if you're the host
+   //
    return true;
 }
 

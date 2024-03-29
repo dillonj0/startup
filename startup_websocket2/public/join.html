@@ -30,21 +30,10 @@
       <main>
          <span id="player-name" class="second_smallest"></span>
          <p class="second_smallest">Choose an open game to join.</p>
-         <table id="game-list">
-            <div style="color: red; font-weight: bolder;">You need to rework this part so it's automatically populated</div>
-            <tr>
-               <th class="t_header">Host name</th>
-               <th class="t_header">Available seats</th>
-               <th class="t_header">Status</th>
-            </tr>
-            <tr>
-               <td class="t_header">Elmo</td>
-               <td class="t_header">14/15</td>
-               <td class="t_header">In lobby</td>
-               <td class="t_header"><button onclick='joinGame(1)' class="btn btn-outline-secondary">join</button></td>
-            </tr>
-         </table>
-         <button class="btn btn-outline-secondary" onclick="newGame()">create a new game</button>       </main>
+         <div style="color: red; font-weight: bolder;">You need to rework this part so it's automatically populated</div>
+         <div id="game-list"></div>
+         <button class="btn btn-outline-secondary" onclick="newGame()">create a new game</button>
+      </main>
       <br>
       <hr />
       <footer>
