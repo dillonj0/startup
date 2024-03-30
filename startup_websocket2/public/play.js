@@ -203,6 +203,13 @@ function randomText() {
 
 async function updateScores() {
    console.log('updating score');
+
+   //
+   // TODO: send each player's score to the backend.
+   // --> Backend needs to store scores and use 
+   //       websocket to distribute them to each player.
+   //
+
    let newScore = new Object({score: playerScore, username: getPlayerName()});
    try {
       // attempt to get the top scores from the server

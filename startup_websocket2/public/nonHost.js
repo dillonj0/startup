@@ -30,6 +30,11 @@ if(!isAuthenticated()){
 
 function snatch() {
    const playerid = getPlayerName();
+
+   //
+   // Send playerid through websocket (so it can pass it to host)
+   //
+
    // Disable the snatch button so it can't be clicked again.
    document.getElementById('snatch-button').disabled = true;
    document.getElementById('snatch-button').textContent = "Snatched!";

@@ -12,11 +12,6 @@ function AddPlayerName() {
    console.log('set host name');
 }
 
-document.addEventListener('DOMContentLoaded', function(){
-   console.log('setting player name');
-   AddPlayerName();
-})
-
 function getPlayerName() {
    return localStorage.getItem('userName');
 }
@@ -42,6 +37,22 @@ function isHost() {
    return hostName == playerName;
 }
 
+function play(){
+   // send out websocket note to start the game
+   console.log('playing game');
+   if(isHost()){
+      sendStartCommand();
+      window.location.href = 'play.html';
+   } else {
+      window.location.href = 'nonHost.html';
+   }
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+   console.log('setting player name');
+   AddPlayerName();
+})
+
 if(!isAuthenticated()){
    window.location.href = 'index.html';
    console.log('Not authenticated!!!');
@@ -54,12 +65,36 @@ if(!isAuthenticated()){
    waitForGameElement.style.display = 'flex';
 }
 
-function play(){
-   // send out websocket note to start the game
-   console.log('playing game');
-   if(isHost()){
-      window.location.href = 'play.html';
-   } else {
-      window.location.href = 'nonHost.html';
+// ====== WEBSOCKET STUFF =========================
+// Adjust the webSocket protocol to what is being used for HTTP
+const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+const socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+
+// Display that we have opened the webSocket
+socket.onopen = (event) => {
+  console.log('websocket connection opened');
+};
+
+socket.on('message', function(message) {
+   console.log('received from server:', message);
+   const host = message.hostName;
+   const command = message.command;
+   if(host===getHostName() && command === 'start'){
+      play();
    }
+});
+
+socket.onclost = (event) => {
+   alert('lost connection to server; please check connection');
+};
+
+function sendStartCommand() {
+   const hostName = getHostName(); // Get the host's name
+   const message = {
+      hostName: hostName,
+      command: 'start'
+   };
+
+   // Send the message to the WebSocket server
+   socket.send(JSON.stringify(message));
 }

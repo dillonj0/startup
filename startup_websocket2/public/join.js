@@ -65,7 +65,7 @@ async function PopulateGameList(){
 async function newGame(){
    // create a new game, redirect to lobby
    console.log('creating new game');
-   host = getPlayerName();
+   const host = getPlayerName();
    try {
       const response = await fetch('/api/createGame', {
          method: 'POST',
@@ -85,7 +85,7 @@ async function newGame(){
    }
 }
 
-function joinGame(hostName){
+async function joinGame(hostName){
    // join an existing game, redirect to lobby
    console.log('joining game with hostname', hostName);
    localStorage.setItem('hostName', hostName);

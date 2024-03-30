@@ -1,6 +1,17 @@
 # Web Programming
 ## Dillon Jensen
 
+### _29/FEB/2024_
+#### Web frameworks
+React
+- Instead of writing html & css totally seperately, it's all done in one interface which is craaaazy!
+- Moving parts and transpilation
+- The easy part is that now we only actually need one HTML page;
+--> The users' actions navigate a switch that could (for example) read the URL and change the body section of the DOM
+- Your component functions have to be uppercase or it'll assume they're intended to be actual HTML elements
+
+Components, hooks
+
 ### _25/FEB/2024_
 #### Security
 Soooo expensive!!!! Consider the collateral damage:
