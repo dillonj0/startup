@@ -87,6 +87,11 @@ main {
    font-weight: bolder;
 }
 
+.player-icon {
+   max-width: 300;
+   max-height: 300;
+}
+
 .ScoreboardLabel {
    text-align: center;
    padding: 10px;

@@ -72,6 +72,21 @@ const socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
 // Display that we have opened the webSocket
 socket.onopen = (event) => {
   console.log('websocket connection opened');
+  // Wait for half a second
+  setTimeout(resolve, 500);
+
+   // Send a message so the host knows who's in the game.
+   const hostName = getHostName();
+   const command = 'join';
+   const userName = getPlayerName();
+   const message = {
+      hostName: hostName,
+      command: command,
+      userName: userName
+   };
+
+   // Send the message to the WebSocket server
+   socket.send(JSON.stringify(message));
 };
 
 socket.on('message', function(message) {
@@ -104,3 +119,4 @@ function notifyWebsocket(){
    // Send the message to the WebSocket server
    socket.send(JSON.stringify(message));
 }
+

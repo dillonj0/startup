@@ -25,6 +25,11 @@ async function PopulateGameList(){
       const gameList = Object.values(gameListObject);
       console.log(gameList);
       const gameTable = document.getElementById('game-list');
+      if(gameList.length === 0){
+         console.log('no open games');
+         gameTable.style.display = 'none';
+         document.getElementById('no-open-games').style.display = 'flex';
+      }
       gameList.forEach(entry => {
          const row = document.createElement('tr');
          row.className = 'game-row';

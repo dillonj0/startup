@@ -1,4 +1,7 @@
 console.log('play.js');
+// Adjust the webSocket protocol to what is being used for HTTP
+const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+const socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~ PAGE SETUP ~~~~~~~~~~
@@ -13,6 +16,7 @@ function AddPlayerName() {
    console.log("set player name");
 }
 document.addEventListener('DOMContentLoaded', function(){
+   createPlayerScoreBoard(getPlayerName());
    AddPlayerName();
 })
 
@@ -39,6 +43,7 @@ let roll = 1;
 let secondsLeft = SEC_PER_ROUND;
 let mallowCount = 0;
 let playerScore = 0; // IMPLEMENT A CLASS INSTEAD
+let nonHostPlayers = [];
 let next_round_luck = BASE_ROLL_LUCK;
 let doubles_luck = BASE_DOUBLES_LUCK;
 
@@ -147,6 +152,7 @@ function endGame(){
    document.querySelector('.luck-bar').style.display = "none";
    document.getElementById('next-round-button').style.display = "none";
    roundNumberElement.style.display = "none";
+   document.getElementById('player-name').style.display = 'none';
    document.getElementById('last-round-action').textContent = " ";
 
    // Make the final score elements appear
@@ -154,9 +160,21 @@ function endGame(){
    mainItems.forEach((item) => {
       item.style.display = "flex";
    });
+
+   // Find the player with the highest score
+   let highestScorer = { userName: getPlayerName(), score: playerScore };
+   nonHostPlayers.forEach(player => {
+       if (player.score > highestScorer.score) {
+           highestScorer = { userName: player.userName, score: player.score };
+       }
+   });
+   document.querySelector('#post-game-username').textContent = highestScorer.userName;
    document.querySelector('#post-game-score').textContent = playerScore;
 
-   updateScores();
+   updateScores(playerScore, getPlayerName());
+   nonHostPlayers.forEach(player => {
+      updateScores(player.score, player.userName);
+   })
 }
 
 function snatch_reset() {
@@ -168,28 +186,38 @@ function snatch_reset() {
 }
 
 function snatch(playerid) {
-   // 
-   // TODO: actually make this change something on the page for each different player
-   //
-
-   // Disable the snatch button so it can't be clicked again.
-   document.getElementById('snatch-button').disabled = true;
-   document.getElementById('snatch-button').textContent = "Snatched!";
+   console.log('snatch ' + playerid);
 
    // Set up which elements we're talking about
-   console.log('snatch ' + playerid);
-   const playerScoreboardElement = document.getElementById(playerid);
-   const scoreImgElement = document.querySelector('.player-icon');
-   const scoreElement = document.querySelector('.mallow-count');
+   const imgID = playerid + '-icon'
+   const scoreImgElement = document.getElementById(imgID);
+   const scoreElement = document.getElementById(playerid);
+   let sizeString;
 
-   // Update score & score display
-   playerScore += mallowCount;
-   scoreElement.textContent = playerScore + ' mallows';
+   // Disable the snatch button so it can't be clicked again.
+   if(playerid === getPlayerName()){
+      document.getElementById('snatch-button').disabled = true;
+      document.getElementById('snatch-button').textContent = "Snatched!";
+      
+      // Update score & score display
+      playerScore += mallowCount;
+      scoreElement.textContent = playerScore + ' mallows';
+      sizeString = (playerScore / 10) + 'px';
+   } else {
+      const player = nonHostPlayers.find(player => player.userName === playerid);
+      if (player) {
+         player.score += mallowCount;
+         scoreElement.textContent = player.score + ' mallows';
+         sizeString = (player.score / 10) + 'px';
+      } else {
+         console.log('Cannot snatch', playerid, ': not found in player list.');
+      }
+   }
+   
    // Grow mallow score size accordingly
-   let sizeString = playerScore + 'px';
    scoreImgElement.style.height = sizeString;
    scoreImgElement.style.width = sizeString;
-   document.querySelector(".player-icon").src="dark_mallow-192x192.png";
+   scoreImgElement.src="dark_mallow-192x192.png";
 }
 
 function randomText() {
@@ -207,16 +235,9 @@ function randomText() {
    else {return "Mallows vanished in a blaze of glory."}
 }
 
-async function updateScores() {
-   console.log('updating score');
-
-   //
-   // TODO: send each player's score to the backend.
-   // --> Backend needs to store scores and use 
-   //       websocket to distribute them to each player.
-   //
-
-   let newScore = new Object({score: playerScore, username: getPlayerName()});
+async function updateScores(score, name) {
+   console.log('sending score for', name);
+   let newScore = new Object({score: score, username: name});
    try {
       // attempt to get the top scores from the server
       const response = await fetch('/api/score', {
@@ -289,41 +310,87 @@ if(!isAuthenticated()){
 }
 
 // ====== WEBSOCKET STUFF =========================
-// Adjust the webSocket protocol to what is being used for HTTP
-const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
-const socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
-
+// Display that we have opened the webSocket
 // Display that we have opened the webSocket
 socket.onopen = (event) => {
-  console.log('websocket connection opened');
-};
-
-socket.on('message', function(message) {
-   console.log('received from server:', message);
-   const host = message.hostName;
-   const command = message.command;
-   if(host===getHostName()){
+   console.log('websocket connection opened');
+ };
+ 
+ socket.onmessage = function(event) {
+    console.log('received from server:', event.data);
+    const message = JSON.parse(event.data);
+    const host = message.hostName;
+    const command = message.command;
+   if(host === getPlayerName()){
+      // The player name should be the host name because only the host ends 
+      //    up here.      
       if(command === 'snatch'){
          const playerID = message.userName;
          snatch(playerID);
+      } else if (command === 'join'){
+         addNonHost(message.userName);
       }
    }
-});
+ };
+ 
+ socket.onclose = (event) => {
+    alert('lost connection to server; please check connection');
+ };
+ 
 
-socket.onclose = (event) => {
-   alert('lost connection to server; please check connection');
-};
-
-function notifyNonHost(action){
+function notifyNonHost(action) {
    const hostName = getPlayerName();
    const command = action;
    const userName = getPlayerName();
    const message = {
-      hostName: hostName,
-      command: command,
-      userName: userName
+       hostName: hostName,
+       command: command,
+       userName: userName
    };
 
-   // Send the message to the WebSocket server
-   socket.send(JSON.stringify(message));
+   // Check if the WebSocket connection is open
+   if (socket.readyState === WebSocket.OPEN) {
+       // Send the message to the WebSocket server
+       socket.send(JSON.stringify(message));
+   } else {
+       // Handle the case where the WebSocket connection is not open
+       console.log('WebSocket connection is not open.');
+   }
+}
+
+function addNonHost(name) {
+   const newPlayer = {userName: name, score: 0, snatched: false};
+   nonHostPlayers.push(newPlayer);
+   createPlayerScoreBoard(name);
+   console.log('player', message.userName, 'joined the game');
+}
+
+function createPlayerScoreBoard(name){
+   // Create the elements for the player scoreboard
+   const newScoreboard = document.createElement('div');
+   newScoreboard.classList.add('player-scoreboard');
+
+   const playerNameEl = document.createElement('div');
+   playerNameEl.classList.add('player-name');
+   playerNameEl.textContent = name;
+
+   const playerImgEl = document.createElement('img');
+   playerImgEl.src = 'android-chrome-192x192.png'; // Set the default icon source
+   const iconID = name + '-icon';
+   playerImgEl.classList.add('player-icon');
+   playerImgEl.id = iconID;
+   playerImgEl.style.width = '0';
+   playerImgEl.style.height = '0';
+
+   const playerScoreEl = document.createElement('div');
+   playerScoreEl.classList.add('mallow-count');
+   playerScoreEl.textContent = '0 mallows'; // Set the initial score
+   playerScoreEl.id = name;
+
+   newScoreboard.appendChild(playerNameEl);
+   newScoreboard.appendChild(playerImgEl);
+   newScoreboard.appendChild(playerScoreEl);
+
+   const container = document.querySelector('.Scoreboard');
+   container.appendChild(newScoreboard);
 }
