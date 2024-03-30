@@ -51,6 +51,7 @@ async function playRounds(){
    // Make a call to the backend websocket so the other players know to reset
    //
    snatch_reset();
+   notifyNonHost('round-start');
    roll = 1;
    document.getElementById('next-round-button').disabled = true;
    document.getElementById('snatch-button').disabled = false;
@@ -128,6 +129,7 @@ async function countDown() {
 }
 
 function endRound(){
+   notifyNonHost('round-end');
    document.getElementById('next-round-button').disabled = false;
    if(document.getElementById('snatch-button').disabled === false){
       document.getElementById('snatch-button').disabled = true;
@@ -166,6 +168,10 @@ function snatch_reset() {
 }
 
 function snatch(playerid) {
+   // 
+   // TODO: actually make this change something on the page for each different player
+   //
+
    // Disable the snatch button so it can't be clicked again.
    document.getElementById('snatch-button').disabled = true;
    document.getElementById('snatch-button').textContent = "Snatched!";
@@ -280,4 +286,44 @@ function isAuthenticated(){
 if(!isAuthenticated()){
    window.location.href = 'index.html';
    console.log('Not authenticated!!!');
+}
+
+// ====== WEBSOCKET STUFF =========================
+// Adjust the webSocket protocol to what is being used for HTTP
+const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+const socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+
+// Display that we have opened the webSocket
+socket.onopen = (event) => {
+  console.log('websocket connection opened');
+};
+
+socket.on('message', function(message) {
+   console.log('received from server:', message);
+   const host = message.hostName;
+   const command = message.command;
+   if(host===getHostName()){
+      if(command === 'snatch'){
+         const playerID = message.userName;
+         snatch(playerID);
+      }
+   }
+});
+
+socket.onclose = (event) => {
+   alert('lost connection to server; please check connection');
+};
+
+function notifyNonHost(action){
+   const hostName = getPlayerName();
+   const command = action;
+   const userName = getPlayerName();
+   const message = {
+      hostName: hostName,
+      command: command,
+      userName: userName
+   };
+
+   // Send the message to the WebSocket server
+   socket.send(JSON.stringify(message));
 }

@@ -84,7 +84,7 @@ socket.on('message', function(message) {
    }
 });
 
-socket.onclost = (event) => {
+socket.onclose = (event) => {
    alert('lost connection to server; please check connection');
 };
 

@@ -51,30 +51,54 @@ server.on('upgrade', (request, socket, head) => {
 // Keep track of all the connections
 let connections = [];
 wss.on('connection', (ws) => {
-    // add the connection to the list of connections
-    const connection = { id: connections.length + 1, alive: true, ws: ws };
-    connections.push(connection);
+   console.log('adding new connection');
+   // add the connection to the list of connections
+   const connection = { id: connections.length + 1, alive: true, ws: ws };
+   connections.push(connection);
 
-    ws.on('message', (message) => {
-        // Parse the message from the client
-        const parsedMessage = JSON.parse(message);
-        const hostName = parsedMessage.hostName;
-        const command = parsedMessage.command;
+   ws.on('message', (message) => {
+      // Parse the message from the client
+      const parsedMessage = JSON.parse(message);
+      const hostName = parsedMessage.hostName;
+      const command = parsedMessage.command;
 
-        if (command === 'start') {
-            console.log('Received instruction to start game with host name ', hostName);
-            // Broadcast the message to all connected clients except the host
-            connections.forEach(conn => {
-                if (conn !== connection) {
-                    conn.ws.send(JSON.stringify({ hostName, command }));
-                }
-            });
-        }
-    });
+      if (command === 'start') {
+         console.log('Received instruction to start game with host name ', hostName);
+         // Broadcast the message to all connected clients except the host
+         connections.forEach(conn => {
+               if (conn !== connection) {
+                  conn.ws.send(JSON.stringify({ hostName, command }));
+               }
+         });
+      } else if (command === 'snatch'){
+         // Notify all connected clients;
+         const userName = parsedMessage.userName;
+         console.log('player', userName, 'snatch in game', hostName);
+         connections.forEach(conn => {
+            const snatchMessage = { hostName, command, userName: userName};
+            conn.ws.send(JSON.stringify(snatchMessage));
+         });
+      } else if (command === 'round-end') {
+         const userName = parsedMessage.userName;
+         console.log(hostName, 'game round end');
+         connections.forEach(conn => {
+            const snatchMessage = { hostName, command, userName: userName};
+            conn.ws.send(JSON.stringify(snatchMessage));
+         });
+      } else if (command === 'round-start') {
+         const userName = parsedMessage.userName;
+         console.log('start round', hostName);
+         connections.forEach(conn => {
+            const snatchMessage = { hostName, command, userName: userName};
+            conn.ws.send(JSON.stringify(snatchMessage));
+         });
+      }
+   });
 
-    ws.on('close', () => {
-        connections = connections.filter(conn => conn !== connection);
-    });
+   ws.on('close', () => {
+      connections = connections.filter(conn => conn !== connection);
+      console.log('closed a connection');
+   });
 });
 
 // register a new user

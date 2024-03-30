@@ -15,6 +15,10 @@ function getPlayerName() {
    return localStorage.getItem('userName');
 }
 
+function getHostName() {
+   return localStorage.getItem('hostName');
+}
+
 function isAuthenticated(){
    username = localStorage.getItem("userName");
    if(username){
@@ -31,9 +35,7 @@ if(!isAuthenticated()){
 function snatch() {
    const playerid = getPlayerName();
 
-   //
-   // Send playerid through websocket (so it can pass it to host)
-   //
+   notifyWebsocket();
 
    // Disable the snatch button so it can't be clicked again.
    document.getElementById('snatch-button').disabled = true;
@@ -58,4 +60,47 @@ function roundReset() {
    document.getElementById('snatch-button').textContent = "Snatch now!";
 }
 
-// add websocket code: when we get the signal to play, we play
+// add websocket code:
+// when a user presses the button, notify the server, update scoreboard on host
+// when a round ends, roundReset()
+
+// ====== WEBSOCKET STUFF =========================
+// Adjust the webSocket protocol to what is being used for HTTP
+const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+const socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+
+// Display that we have opened the webSocket
+socket.onopen = (event) => {
+  console.log('websocket connection opened');
+};
+
+socket.on('message', function(message) {
+   console.log('received from server:', message);
+   const host = message.hostName;
+   const command = message.command;
+   if(host===getHostName()){
+      if(command === 'round-end'){
+      endRound();
+      } else if (command === 'round-start'){
+         roundReset();
+      }
+   }
+});
+
+socket.onclose = (event) => {
+   alert('lost connection to server; please check connection');
+};
+
+function notifyWebsocket(){
+   const hostName = getHostName();
+   const command = 'snatch';
+   const userName = getPlayerName();
+   const message = {
+      hostName: hostName,
+      command: command,
+      userName: userName
+   };
+
+   // Send the message to the WebSocket server
+   socket.send(JSON.stringify(message));
+}
