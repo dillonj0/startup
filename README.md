@@ -94,3 +94,10 @@ For this deliverable I deployed the Simon HTML to my server and built the struct
 [x] You cannot play the game without logging in, but anyone can see the high scores. (High scores are in the about page.)
 [x] Top scores are stored in MongoDB -- this means I don't just save the top 10 anymore, because I'm not restricted by the size of the server memory.
 [x] Simon and Startup deployed to production environment.
+
+## Websocket Deliverable
+[x] Simon websocket deployed to the development environment.
+[x] Backend processes incoming WS requests
+[x] Frontend depends on WS messages to direct user traffic and provide multiplayer functionality
+[x] Final version of the code pushed to GitHub
+In this deliverable I had to make two additional HTML pages so there's a lobby before a game is started by a host, and so that players that aren't the host have just a simple UI where they hit the "snatch" button and WS handles delivering the message to the host. Host's frontend handles all the gameplay processing and submits the high scores at the end.

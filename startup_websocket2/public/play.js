@@ -209,6 +209,7 @@ function snatch(playerid) {
          player.score += mallowCount;
          scoreElement.textContent = player.score + ' mallows';
          sizeString = (player.score / 10) + 'px';
+         player.snatched = true;
       } else {
          console.log('Cannot snatch', playerid, ': not found in player list.');
       }
@@ -289,11 +290,20 @@ function updateLuckBar(failLuck, doubleLuck) {
 }
 
 function everyoneHasSnatched () {
+   if (document.getElementById('snatch-button').disabled === false){
+      return false;
+   }
 
-   // TODO: Once we make the game multi-player, I need to
-   //       actually check if the other players have snatched.
+   // Check if all non-host players have snatched
+   for (let i = 0; i < nonHostPlayers.length; i++) {
+      if (!nonHostPlayers[i].snatched) {
+          return false;
+      }
+  }
 
-   return document.getElementById('snatch-button').disabled;
+  // Return true if all players have snatched
+  console.log('all have snatched. End round.');
+  return true;
 }
 
 function isAuthenticated(){
