@@ -44,7 +44,9 @@ function play(){
       sendStartCommand();
       window.location.href = 'play.html';
    } else {
-      window.location.href = 'nonHost.html';
+      setTimeout ( () => {
+         window.location.href = 'nonHost.html';
+      }, 10);
    }
 }
 

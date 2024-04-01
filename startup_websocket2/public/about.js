@@ -11,6 +11,9 @@ async function retrieveScores () {
       // Sort scores from greatest to least
       dataString.sort((a, b) => b.score - a.score);
 
+      // Slice the array to get only the top 10 scores
+      dataString = dataString.slice(0, 10);
+
       // Also save to local storage
       localStorage.setItem('scoreArray', JSON.stringify(dataString));
       console.log('got scores from server');
@@ -32,14 +35,22 @@ function displayScores(dataString){
    if(dataString) {
       const tableBodyObject = document.querySelector('#scoreTable');
 
+      let i = 1;
       dataString.forEach(entry => {
          const row = document.createElement('tr');
+         const orderCell = document.createElement('td');
          const nameCell = document.createElement('td');
          const scoreCell = document.createElement('td');
 
+         orderCell.textContent = i;
+         orderCell.style.borderRightColor = '#CCCCCC';
+         orderCell.style.borderRightWidth = '1px';
+         orderCell.style.fontStyle = 'italic';
+         i++;
          nameCell.textContent = entry.username;
          scoreCell.textContent = entry.score;
 
+         row.appendChild(orderCell);
          row.appendChild(nameCell);
          row.appendChild(scoreCell);
 

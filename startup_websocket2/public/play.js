@@ -32,6 +32,7 @@ const MIN_MALLOW_IMG_SIZE = 50;
 const BASE_ROLL_LUCK = 0.1;
 const BASE_DOUBLES_LUCK = 0.33;
 const PER_ROUND_VARIATION = 0.05;
+const scoreboardImgScale = 2;
 
 const roundNumberElement = document.querySelector('#round-label');
 const secLeftElement = document.querySelector('.countdown-timer');
@@ -169,7 +170,7 @@ function endGame(){
        }
    });
    document.querySelector('#post-game-username').textContent = highestScorer.userName;
-   document.querySelector('#post-game-score').textContent = playerScore;
+   document.querySelector('#post-game-score').textContent = highestScorer.score;
 
    updateScores(playerScore, getPlayerName());
    nonHostPlayers.forEach(player => {
@@ -182,6 +183,9 @@ function snatch_reset() {
    const playerIcons = document.querySelectorAll(".player-icon");
    playerIcons.forEach((icon) => {
       icon.src="android-chrome-192x192.png";
+   });
+   nonHostPlayers.forEach((player) => {
+      player.snatched = false;
    });
 }
 
@@ -202,13 +206,13 @@ function snatch(playerid) {
       // Update score & score display
       playerScore += mallowCount;
       scoreElement.textContent = playerScore + ' mallows';
-      sizeString = (playerScore / 10) + 'px';
+      sizeString = (playerScore / scoreboardImgScale) + 'px';
    } else {
       const player = nonHostPlayers.find(player => player.userName === playerid);
       if (player) {
          player.score += mallowCount;
          scoreElement.textContent = player.score + ' mallows';
-         sizeString = (player.score / 10) + 'px';
+         sizeString = (player.score / scoreboardImgScale) + 'px';
          player.snatched = true;
       } else {
          console.log('Cannot snatch', playerid, ': not found in player list.');
