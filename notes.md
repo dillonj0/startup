@@ -1,6 +1,17 @@
 # Web Programming
 ## Dillon Jensen
 
+### _01/APR/2024_
+#### Web frameworks
+##### Single page application
+- Render a different component in the HTML body when you call JSX functions
+- You've got a super simple HTML index file so that your JSX decides what to actually render.
+- <BrowserRouter> object sends you to different functions that return whatever element you're hoping to send.
+- Assignment is to add a scores component to the codepen example
+##### Vite
+- Simple toolchain that gets your code bundled, transpiled, hot reload ready?
+There's something you have to do to make sure that your frontend is actually calling to the backend; during the in-class demonstration, we bounced against a bug where we were accidentally calling into our front-end server using a call intended for the backend and it just gave us the html for the home page.
+
 ### _29/FEB/2024_
 #### Web frameworks
 React

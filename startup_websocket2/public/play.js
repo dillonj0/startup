@@ -26,7 +26,7 @@ function getPlayerName() {return localStorage.getItem('userName');}
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~ ACTUAL GAMEPLAY ~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const NUMBER_OF_ROUNDS = 1;
+const NUMBER_OF_ROUNDS = 5;
 const SEC_PER_ROUND = 3;
 const MALLOW_SCALE = 10;
 const MIN_MALLOW_IMG_SIZE = 50;
@@ -48,17 +48,14 @@ let playerScore = 0; // IMPLEMENT A CLASS INSTEAD
 let nonHostPlayers = [];
 let next_round_luck = BASE_ROLL_LUCK;
 let doubles_luck = BASE_DOUBLES_LUCK;
+let playable = true;
 
 // Play a certain number of rounds
 updateLuckBar(next_round_luck,doubles_luck);
 playRounds();
 
 async function playRounds(){
-   //
-   // Make a call to the backend websocket so the other players know to reset
-   //
    snatch_reset();
-   notifyNonHost('round-start');
    roll = 1;
    document.getElementById('next-round-button').disabled = true;
    document.getElementById('snatch-button').disabled = false;
@@ -70,6 +67,7 @@ async function playRounds(){
       document.getElementById('next-round-button').textContent = "End Game";
    }
    if(round<=NUMBER_OF_ROUNDS){
+      notifyNonHost('round-start');
       roundNumberElement.textContent = "Round " + round + " of " + NUMBER_OF_ROUNDS;
       next_round_luck=BASE_ROLL_LUCK;
       doubles_luck=BASE_DOUBLES_LUCK;
@@ -149,6 +147,7 @@ function endRound(){
 
 async function endGame(){
    console.log('ending game...');
+   playable = false;
    // Make the gameplay elements disappear
    document.querySelector('.gameplay').style.display = "none";
    document.querySelector('.luck-bar').style.display = "none";
@@ -205,6 +204,7 @@ function snatch_reset() {
 
 function snatch(playerid) {
    console.log('snatch ' + playerid);
+   if (!playable){return;}
 
    // Set up which elements we're talking about
    const imgID = playerid + '-icon'
