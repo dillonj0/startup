@@ -187,15 +187,42 @@ apiRouter.get('/scores', async (_req, res) => {
 
 // Create a new game
 apiRouter.post('/createGame', async (req, res) => {
-    const { hostName } = req.body;
-    console.log('trying to make a game with hostname ' + hostName);
-    try {
-        await createNewGame(hostName);
-        res.status(200).json({ message: 'game created successfully' });
-    } catch (error) {
-        console.log('error creating new game:', error);
-        res.status(409).json({ message: 'error creating new game' });
-    }
+   const { hostName } = req.body;
+   console.log('trying to make a game with hostname ' + hostName);
+   try {
+   await createNewGame(hostName);
+   res.status(200).json({ message: 'game created successfully' });
+   } catch (error) {
+   console.log('error creating new game:', error);
+   res.status(409).json({ message: 'error creating new game' });
+   }
+});
+
+apiRouter.post('/endGame', async(req, res) => {
+   // Find the game in the list and delete it
+   const { hostName } = req.body;
+   console.log('closing game with hostname', hostName);
+   try {
+      await closeGame(hostName);
+      res.status(200).json({message:'gameEnd'});
+   } catch (error) {
+      console.log('error ending game:', error);
+      res.status(409).json({ message: 'error ending game' });
+   }
+    
+});
+
+apiRouter.post('/changeGameStatus', async(req, res) => {
+    // Change the game status with the corresponding hostname to "playing"
+    const {hostName} = req.body;
+   //  console.log('changing', hostName, 'status to \'playing\'');
+   try {
+      await changeToPlaying(hostName);
+      res.status(200).json({message:'playing!'});
+   } catch (error) {
+      console.log('Error changing game status:', error);
+      res.status(409).json({ message: 'error updating game' });
+   }
 });
 
 // Get a list of active games
@@ -228,4 +255,39 @@ async function createNewGame(hostName) {
             resolve();
         }
     });
+}
+
+async function closeGame(hostName) {
+   return new Promise((resolve, reject) => {
+      // Find the index of the game with the given hostName
+      const index = openGames.findIndex(game => game.hostName === hostName);
+      // If the game is found, remove it from the openGames array
+      if (index !== -1) {
+         openGames.splice(index, 1);
+         console.log(`Closed game with hostName ${hostName}`);
+         resolve();
+      } else {
+         console.log(`Game with hostName ${hostName} not found`);
+         const errorText = 'game' + hostName + 'not found.';
+         reject(errorText);
+      }
+   });
+    
+}
+
+async function changeToPlaying(hostName) {
+   return new Promise((resolve, reject) => {
+      // Find the game with the given hostName
+      const game = openGames.find(game => game.hostName === hostName);
+      // If the game is found, update its status to 'playing'
+      if (game) {
+         game.status = 'playing';
+         console.log(`Changed game status of ${hostName} to 'playing'`);
+         resolve();
+      } else {
+         console.log(`Game with hostName ${hostName} not found`);
+         const errorText = 'game' + hostName + 'not found.';
+         reject(errorText);
+      }
+   });
 }

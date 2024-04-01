@@ -104,7 +104,9 @@ socket.onmessage = function(event) {
 };
 
 socket.onclose = (event) => {
-   alert('lost connection to server; please check connection');
+   if(alert('lost connection to server; please check connection')){
+      window.location.href='index.html';
+   }
 };
 
 

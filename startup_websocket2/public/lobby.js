@@ -31,18 +31,29 @@ function isAuthenticated(){
 function isHost() {
    const hostName = getHostName();
    const playerName = getPlayerName();
-   console.log('Player name: ' + playerName);
-   console.log('Host name: ' + hostName);
+   // console.log('Player name: ' + playerName);
+   // console.log('Host name: ' + hostName);
    
    return hostName == playerName;
 }
 
-function play(){
+async function play(){
    // send out websocket note to start the game
-   console.log('playing game');
    if(isHost()){
-      sendStartCommand();
-      window.location.href = 'play.html';
+      try {
+         const host = getHostName();
+         const response = await fetch('/api/changeGameStatus', {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify({hostName: host})
+         });
+         console.log('playing game');
+         sendStartCommand();
+         window.location.href = 'play.html';
+      } catch (error) {
+         console.error('error starting game:', error);
+         alert('There was an error starting the game.');
+      }
    } else {
       setTimeout ( () => {
          window.location.href = 'nonHost.html';

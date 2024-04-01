@@ -1,4 +1,5 @@
 console.log('play.js');
+
 // Adjust the webSocket protocol to what is being used for HTTP
 const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
 const socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
@@ -25,7 +26,7 @@ function getPlayerName() {return localStorage.getItem('userName');}
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~ ACTUAL GAMEPLAY ~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const NUMBER_OF_ROUNDS = 5;
+const NUMBER_OF_ROUNDS = 1;
 const SEC_PER_ROUND = 3;
 const MALLOW_SCALE = 10;
 const MIN_MALLOW_IMG_SIZE = 50;
@@ -146,7 +147,7 @@ function endRound(){
    mallowCountImage.style.width = 0;
 }
 
-function endGame(){
+async function endGame(){
    console.log('ending game...');
    // Make the gameplay elements disappear
    document.querySelector('.gameplay').style.display = "none";
@@ -176,6 +177,19 @@ function endGame(){
    nonHostPlayers.forEach(player => {
       updateScores(player.score, player.userName);
    })
+
+   // Let the main system know that the game is over
+   try {
+      const host = getPlayerName();
+      response = await fetch('/api/endGame', {
+         method: 'POST',
+         headers: {'content-type': 'application/json'},
+         body: JSON.stringify({hostName: host})
+      });
+   } catch (error) {
+      console.log('error closing game:', error);
+      alert('There was an error closing the game.');
+   }
 }
 
 function snatch_reset() {
@@ -345,8 +359,11 @@ socket.onopen = (event) => {
       if(command === 'snatch'){
          snatch(playerID);
       } else if (command === 'join'){
-         addNonHost(playerID);
-         console.log(playerID, 'joined the game');
+         // run these two lines if there's not already a player with this ID:
+         if (!nonHostPlayers.find(player => player.userName === playerID)) {
+            addNonHost(playerID);
+            console.log(playerID, 'joined the game');
+         }
       }
    }
  };

@@ -90,6 +90,7 @@ main {
 .player-icon {
    max-width: 300;
    max-height: 300;
+   transition: width 0.5s, height 0.5s;
 }
 
 .ScoreboardLabel {
