@@ -82,7 +82,7 @@ async function newGame(){
          alert('Another game is already live with the same host name.')
       } else {
          console.log('created a new game!');
-         localStorage.setItem('HostName', getPlayerName());
+         localStorage.setItem('hostName', getPlayerName());
          window.location.href = 'lobby.html';
       }
    } catch (error) {

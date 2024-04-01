@@ -55,6 +55,7 @@ wss.on('connection', (ws) => {
    // add the connection to the list of connections
    const connection = { id: connections.length + 1, alive: true, ws: ws };
    connections.push(connection);
+   console.log('--> active connections:', connections);
 
    ws.on('message', (message) => {
       // Parse the message from the client
@@ -66,9 +67,7 @@ wss.on('connection', (ws) => {
          console.log('Received instruction to start game with host name ', hostName);
          // Broadcast the message to all connected clients except the host
          connections.forEach(conn => {
-               if (conn !== connection) {
-                  conn.ws.send(JSON.stringify({ hostName, command }));
-               }
+            conn.ws.send(JSON.stringify({ hostName, command }));
          });
       } else if (command === 'snatch'){
          // Notify all connected clients;
@@ -92,6 +91,13 @@ wss.on('connection', (ws) => {
             const snatchMessage = { hostName, command, userName: userName};
             conn.ws.send(JSON.stringify(snatchMessage));
          });
+      } else if (command === 'join') {
+         const userName = parsedMessage.userName;
+         console.log(userName, 'joining game', hostName);
+         connections.forEach(conn => {
+            const snatchMessage = { hostName, command, userName: userName};
+            conn.ws.send(JSON.stringify(snatchMessage));
+         });
       }
    });
 
@@ -99,6 +105,13 @@ wss.on('connection', (ws) => {
       connections = connections.filter(conn => conn !== connection);
       console.log('closed a connection');
    });
+
+   //
+   //
+   // Functionality for closing games
+   // Ping/pong protocol for keeping connections alive
+   //
+   //
 });
 
 // register a new user

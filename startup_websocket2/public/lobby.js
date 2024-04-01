@@ -75,14 +75,15 @@ socket.onopen = (event) => {
   console.log('websocket connection opened');
 };
 
-socket.on('message', function(message) {
-   console.log('received from server:', message);
+socket.onmessage = function(event) {
+   console.log('received from server:', event.data);
+   const message = JSON.parse(event.data);
    const host = message.hostName;
    const command = message.command;
    if(host===getHostName() && command === 'start'){
       play();
    }
-});
+};
 
 socket.onclose = (event) => {
    alert('lost connection to server; please check connection');

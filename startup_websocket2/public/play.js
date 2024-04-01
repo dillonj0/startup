@@ -212,6 +212,9 @@ function snatch(playerid) {
          player.snatched = true;
       } else {
          console.log('Cannot snatch', playerid, ': not found in player list.');
+         addNonHost(playerid);
+         snatch(playerid);
+         return;
       }
    }
    
@@ -331,14 +334,15 @@ socket.onopen = (event) => {
     const message = JSON.parse(event.data);
     const host = message.hostName;
     const command = message.command;
+    const playerID = message.userName;
    if(host === getPlayerName()){
       // The player name should be the host name because only the host ends 
       //    up here.      
       if(command === 'snatch'){
-         const playerID = message.userName;
          snatch(playerID);
       } else if (command === 'join'){
-         addNonHost(message.userName);
+         addNonHost(playerID);
+         console.log(playerID, 'joined the game');
       }
    }
  };
@@ -372,7 +376,7 @@ function addNonHost(name) {
    const newPlayer = {userName: name, score: 0, snatched: false};
    nonHostPlayers.push(newPlayer);
    createPlayerScoreBoard(name);
-   console.log('player', message.userName, 'joined the game');
+   console.log('player', name, 'joined the game');
 }
 
 function createPlayerScoreBoard(name){

@@ -71,40 +71,42 @@ const socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
 
 // Display that we have opened the webSocket
 socket.onopen = (event) => {
-  console.log('websocket connection opened');
-  // Wait for half a second
-  setTimeout(resolve, 500);
+   console.log('websocket connection opened');
+   // Wait for half a second
+   setTimeout(() => {
+       // Send a message so the host knows who's in the game.
+       const hostName = getHostName();
+       const command = 'join';
+       const userName = getPlayerName();
+       const message = {
+           hostName: hostName,
+           command: 'join',
+           userName: userName
+       };
 
-   // Send a message so the host knows who's in the game.
-   const hostName = getHostName();
-   const command = 'join';
-   const userName = getPlayerName();
-   const message = {
-      hostName: hostName,
-      command: command,
-      userName: userName
-   };
-
-   // Send the message to the WebSocket server
-   socket.send(JSON.stringify(message));
+       // Send the message to the WebSocket server
+       socket.send(JSON.stringify(message));
+   }, 500);
 };
 
-socket.on('message', function(message) {
-   console.log('received from server:', message);
+socket.onmessage = function(event) {
+   console.log('received from server:', event.data);
+   const message = JSON.parse(event.data);
    const host = message.hostName;
    const command = message.command;
-   if(host===getHostName()){
-      if(command === 'round-end'){
-      endRound();
-      } else if (command === 'round-start'){
-         roundReset();
-      }
+   if (host === getHostName()) {
+       if (command === 'round-end') {
+           endRound();
+       } else if (command === 'round-start') {
+           roundReset();
+       }
    }
-});
+};
 
 socket.onclose = (event) => {
    alert('lost connection to server; please check connection');
 };
+
 
 function notifyWebsocket(){
    const hostName = getHostName();
