@@ -5,7 +5,7 @@
       <title>MallowSnatchers</title>
       <link rel = "icon" href="favicon.ico" />
       <meta charset="UTF-8"/>
-      <link rel = "stylesheet" href="lobby.css"/>
+      <link rel = "stylesheet" href="instructions.css"/>
       <!--Bootstrap link-->
       <link
          href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
@@ -27,10 +27,8 @@
       </header>
       <hr />
       <main>
-         <span id="player-name"></span>
-         <div id="host-name" style = 'font-style: italic'></div>
-         <div id = 'wait' style = "font-style: italic; display: none;">Waiting for the host to start the game...</div>
-         <button class="btn btn-success" id="start-button" onclick="play();" style="display: none">Start the game</button>
+         <img alt='graphic respresentation of the gameply instructions' src="HowToPlay.png"/>
+         <button class="btn btn-outline-secondary" id="start-button" onclick="window.location.href = 'index.html'">Got it!</button>
       </main>
       <br>
       <hr />
@@ -42,6 +40,5 @@
             <div><a href="https://thedillon.bandcamp.com">Music</a></div>
          </div>
       </footer>
-      <script src="lobby.js"></script>
    </body>
 </html>

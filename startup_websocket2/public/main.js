@@ -39,13 +39,15 @@ async function login() {
       window.location.href='join.html';
    }
    else if(usernameAndPasswordCheck()){
-      loginOrCreate(`/api/auth/login`)
+      await loginOrCreate(`/api/auth/login`);
+      window.location.href='join.html';
    }
 }
 
 async function createUser() {
    if(usernameAndPasswordCheck()){
-      loginOrCreate(`/api/auth/create`)
+      await loginOrCreate(`/api/auth/create`);
+      window.location.href='instructions.html';
    }
 }
 
@@ -64,7 +66,6 @@ async function loginOrCreate(endpoint) {
    if (response.ok) {
       localStorage.setItem('userName', username);
       console.log('logged in as ' + username);
-      window.location.href='join.html';
    } else {
       alert('Please verify your username and password, or create a new account. If you are attempting to make a new account, your username may already be in use.');
    }
