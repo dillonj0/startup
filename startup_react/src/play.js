@@ -425,8 +425,8 @@ function createPlayerScoreBoard(name){
    playerScoreEl.id = name;
 
    newScoreboard.appendChild(playerNameEl);
-   newScoreboard.appendChild(playerImgEl);
    newScoreboard.appendChild(playerScoreEl);
+   newScoreboard.appendChild(playerImgEl);
 
    const container = document.querySelector('.Scoreboard');
    container.appendChild(newScoreboard);
