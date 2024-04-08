@@ -32,16 +32,18 @@ header {
    justify-content: space-around;
 }
 
-#host-name {
-   margin: 10px;
+th, td {
+   border: 1px solid #dddddd;
+   text-align: center;
+   padding: 8px;
 }
 
-button {
-   margin: 10px !important;
+th {
+   cursor: pointer;
 }
 
 main {
-   flex: 100;
+   flex: 1 80vh;
    display: flex;
    flex-direction: column;
    align-items: center;
@@ -49,14 +51,8 @@ main {
    animation: fade 1s;
 }
 
-.t_header {
-   /* width: 20vw; */
-   padding: 2px;
-}
-
-span {
-   font-weight: bold;
-   margin: 10px;
+p {
+   margin: 40px;
 }
 
 @keyframes fade {
@@ -70,13 +66,29 @@ span {
       opacity: 1;
    }
 }
-main img {
-   margin-top: 15px;
-   max-width: 90vw;
-   max-height: 75vh;
-   border: 1px solid #cccccc;
-   overflow: hidden;
-   box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+
+form input {
+   border-radius: 5px;
+   margin: 3px;
+}
+
+form{
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+}
+
+form button {
+   display: flex;
+   flex-direction: column;
+   margin: 15px;
+   align-items: center;
+   justify-content: center;
+   min-width: 161px;
+}
+
+div {
+   float: inline-start !important;
 }
 
 footer {
@@ -91,23 +103,32 @@ footer {
    align-items: center;
 }
 
-@media (max-height: 600px){
+@media (max-height: 750px){
    header {
       display: none;
    }
    main {
       flex: 1 100 vh;
    }
+   .Scoreboard {
+      display: none;
+   }
 }
 
-@media (max-height: 440px){
+@media (max-height: 540px){
    header{display: none;}
    footer{display:none;}
    hr{display: none;}
-   .second_smallest{display:none;}
+   span{display:none;}
+   h3{display:none;}
+   main table{display: none;}
 }
 
 @media (max-width: 700px){
    header a{display: none;}
    footer a{display:none;}
+   .Scoreboard{display:none;}
+   main img {
+      width:15vw;
+   }
 }

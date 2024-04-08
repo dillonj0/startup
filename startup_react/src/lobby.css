@@ -40,8 +40,18 @@ button {
    margin: 10px !important;
 }
 
+tr{
+   /* display: flex; */
+   /* flex-direction: row; */
+   width: 70vw;
+   justify-content: center;
+}
+td{
+   margin: 10px;
+}
+
 main {
-   flex: 100;
+   flex: 1 80vh;
    display: flex;
    flex-direction: column;
    align-items: center;
@@ -70,14 +80,7 @@ span {
       opacity: 1;
    }
 }
-main img {
-   margin-top: 15px;
-   max-width: 90vw;
-   max-height: 75vh;
-   border: 1px solid #cccccc;
-   overflow: hidden;
-   box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-}
+main img {display: none}
 
 footer {
    display: flex;
@@ -97,6 +100,11 @@ footer {
    }
    main {
       flex: 1 100 vh;
+   }
+   main img {
+      width: 20vh;
+      display: flex;
+      opacity: 1;
    }
 }
 

@@ -1,6 +1,11 @@
 # Web Programming
 ## Dillon Jensen
 
+### _05/APR/2024_
+Simon react scores page demonstration notes
+- Something I had misunderstood about react is that you're not really trying to pull everything into a single jsx file; the jsx just handles the basic framework for the webpage and then you use a router to call into adjacent folders and pull in different blocks of jsx for your main or whatever you want.
+- Nice to see how easy it is to manipulatethe DOM now---instead of having to do all these janky JS moves to set the new object parameters, you just inject HTML directly into the system.
+
 ### _01/APR/2024_
 #### Web frameworks
 ##### Single page application
