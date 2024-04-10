@@ -27,7 +27,7 @@ const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
 // Use json body parsing. Allow access to the front-end content folder.
 app.use(express.json());
-app.use(express.static('public', { root: __dirname }));
+app.set('trust proxy', true);
 
 // I need a service to store all the high scores.
 // Save to server memory and then reset only when the service is reset
