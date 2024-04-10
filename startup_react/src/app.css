@@ -3,12 +3,12 @@ html {
    height: 100%;
 }
 
-.app {
+body {
    display: flex;
-   flex: 1;
-   flex-direction: column;
-   height: 100%;
    margin: 0;
+   flex: 1;
+   height: 100%;
+   flex-direction: column;
 }
 
 h1 {
@@ -33,89 +33,119 @@ header {
 }
 
 main {
+   display: flex;
    flex: 1;
-   display: flex;
    flex-direction: column;
-   align-items: center;
-   justify-content: center;
    animation: fade 1s;
-   height: 100%;
+   justify-content: center;
+   align-items: center;
 }
 
-main img {display: none}
+#player-name {
+   text-align: center;
+}
 
-.login-box {
+#mallow-count-image {
+   max-width: 300px;
+   max-height: 300px;
+   transition: width 1s, height 1s;
+}
+
+#round-label {
+   text-align: center;
+   padding: 10px;
+}
+
+.luck-bar {
+   align-self: center;
+   height:10px;
+   width: 200px;
+   border: 1px solid #aaa;
+   text-align: center;
+   color: #fff;
+}
+
+.gameplay {
+   padding: 10px;
    display: flex;
-   flex-direction: column;
-   align-items: center;
+   flex-direction: row;
    justify-content: center;
 }
 
-.logged-in-box {
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   justify-content: center;
+.gameplay *{
+   padding: 10px;
+   text-align: center;
 }
 
-main div button {
-   margin: 5px;
-   align-items: center;
-   justify-content: center;
+.countdown-timer {
+   font-size: 30px;
+   font-weight: bold;
+   padding: 0px;
 }
 
-#quote {
-   justify-content: center;
-   align-items: center;
-   display: flex;
-   flex-direction: column;
-   padding: 20px;
-   animation: fade-slower 2s;
-   color: #aaaaaa;
+.mallow-total {
+   font-size: 30px;
+   font-weight: bolder;
 }
 
-.quote {
+.player-icon {
+   max-width: 300;
+   max-height: 300;
+   transition: width 0.5s, height 0.5s;
+}
+
+.ScoreboardLabel {
+   text-align: center;
+   padding: 10px;
+   color: #b6b6b6;
+   border-top: 1px solid #ccc;
+}
+
+.Scoreboard {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+   gap: 20px;
+   padding: 10px;
+ }
+ 
+ .player-scoreboard {
+   padding: 10px;
+   text-align: center;
+ }
+
+span {
+   font-weight: bold;
+}
+
+.post-game-main{
+   display:none;
+   align-self: center;
+}
+#post-game-score{
+   animation:fade;
+   animation-duration: 3s;
+   font-size: 50px;
+   font-weight: bolder;
+}
+
+#last-round-action {
+   align-self: center;
    font-style: italic;
+   margin: 5px;
 }
 
-footer {
+#next-round-button {
+   width: 150px;
+   align-self: center;
+   padding: 5px;
+   margin-bottom: 10px;
+}
+
+.quit-button {
    display: flex;
-   flex: 0 50px;
    flex-direction: column;
-}
-
-.footer_container {
-   display: flex;
-   justify-content: space-around;
    align-items: center;
-}
-
-@media (max-height: 600px){
-   header {
-      display: none;
-   }
-   main {
-      flex: 1 100 vh;
-   }
-   main img {
-      width: 20vh;
-      display: flex;
-      opacity: 1;
-   }
-   #quote {
-      display: none;
-   }
-}
-
-@media (max-height: 400px){
-   header{display: none;}
-   footer{display:none;}
-   hr{display: none;}
-}
-
-@media (max-width: 700px){
-   header a{display: none;}
-   footer a{display:none;}
+   padding: 10px;
 }
 
 @keyframes fade {
@@ -130,14 +160,44 @@ footer {
    }
 }
 
-@keyframes fade-slower {
-   from {
-      opacity: 0;
+footer {
+   display: flex;
+   flex: 0 50px;
+   flex-direction: column;
+}
+
+.footer_container {
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
+}
+
+@media (max-height: 750px){
+   header {
+      display: none;
    }
-   75% {
-      opacity: 0;
+   main {
+      flex: 1 100 vh;
    }
-   to {
-      opacity: 1;
+   .Scoreboard {
+      display: none;
+   }
+   .ScoreboardLabel{display:none;}
+}
+
+@media (max-height: 440px){
+   header{display: none;}
+   footer{display:none;}
+   hr{display: none;}
+   .quit-button{display: none;}
+   /* span{display:none;} */
+}
+
+@media (max-width: 700px){
+   header a{display: none;}
+   footer a{display:none;}
+   .Scoreboard{display:none;}
+   main img {
+      width:15vw;
    }
 }
