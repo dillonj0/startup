@@ -1,6 +1,14 @@
 # Web Programming
 ## Dillon Jensen
 
+### _10/APR/2024_
+Problems I've been having with my startup port over to React and how to fix them?
+- Not displaying document in list of dependencies and sources:
+--> Make sure src is not scr or the doc won't actually be listed as a source haha
+- Backend not listening
+--> Make sure to have node running in a seperate console or you won't have your backend service actually listening.
+- CSS got all bungled up when I ported main over. Main flex currently inoperable.
+
 ### _08/APR/2024_
 Typescript basically makes it harder to accidentally bash incompatible types against each other; why you would really really want that is beyond me as long as you're not programming dangerously.
 -> If you're not hoping to continuously experience dynamic typing, it'll give you all kinds of alerts etc. when you're shooting the wrong kind of data through the wrong data hole.
