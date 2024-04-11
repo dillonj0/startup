@@ -172,7 +172,7 @@ footer {
    align-items: center;
 }
 
-@media (max-height: 750px){
+@media (max-height: 550px){
    header {
       display: none;
    }
