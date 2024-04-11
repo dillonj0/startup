@@ -13,7 +13,7 @@ html {
    flex-direction: column;
 }
 
-.comp {
+.body {
    display: flex;
    margin: 0;
    flex: 1;

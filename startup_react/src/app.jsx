@@ -31,7 +31,7 @@ export default function App() {
             </header>
             <hr />
 
-            <div class='body'>
+            <div className='body'>
                <Routes>
                   <Route path = '/' element = {<Main />} exact />
                   <Route path = '/join' element = {<Join />} />
