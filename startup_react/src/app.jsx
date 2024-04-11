@@ -30,17 +30,19 @@ export default function App() {
                </nav>
             </header>
             <hr />
-            
-            <Routes>
-               <Route path = '/' element = {<Main />} exact />
-               <Route path = '/join' element = {<Join />} />
-               <Route path = '/lobby' element = {<Lobby />} />
-               <Route path = '/instructions' element = {<Instructions />} />
-               <Route path = '/nonHost' element = {<NonHost />} />
-               <Route path = '/play' element = {<Play />} />
-               <Route path = '/about' element = {<About />} />
-               <Route path = '*' element = {<NotFound />} exact />
-            </Routes>
+
+            <div class='body'>
+               <Routes>
+                  <Route path = '/' element = {<Main />} exact />
+                  <Route path = '/join' element = {<Join />} />
+                  <Route path = '/lobby' element = {<Lobby />} />
+                  <Route path = '/instructions' element = {<Instructions />} />
+                  <Route path = '/nonHost' element = {<NonHost />} />
+                  <Route path = '/play' element = {<Play />} />
+                  <Route path = '/about' element = {<About />} />
+                  <Route path = '*' element = {<NotFound />} exact />
+               </Routes>
+            </div>
 
             <div id="quote"></div>
             <hr />
