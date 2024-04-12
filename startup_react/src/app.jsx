@@ -43,8 +43,6 @@ export default function App() {
                   <Route path = '*' element = {<NotFound />} exact />
                </Routes>
             </div>
-
-            <div id="quote"></div>
             <hr />
             <footer>
                <div className="footer_container">

@@ -223,3 +223,29 @@ th, td {
       width:15vw;
    }
 }
+
+#quote {
+   justify-content: center;
+   align-items: center;
+   display: flex;
+   flex-direction: column;
+   padding: 20px;
+   animation: fade-slower 2s;
+   color: #aaaaaa;
+}
+
+.quote {
+   font-style: italic;
+}
+
+@keyframes fade-slower {
+   from {
+      opacity: 0;
+   }
+   75% {
+      opacity: 0;
+   }
+   to {
+      opacity: 1;
+   }
+}
