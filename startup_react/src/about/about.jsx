@@ -56,7 +56,7 @@ export function About() {
               ))}
           </tbody>
         </table>
-        <NavLink to="join"><button className="btn btn-outline-secondary">Back to lobby</button></NavLink>
+        <NavLink to="/join"><button className="btn btn-outline-secondary">Back to lobby</button></NavLink>
     </main>
   );
  }

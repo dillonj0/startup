@@ -52,6 +52,11 @@ main {
    align-items: center;
 }
 
+p {
+   margin-right: 30px;
+   margin-left: 30px;
+}
+
 #player-name {
    text-align: center;
 }
@@ -181,6 +186,12 @@ footer {
    display: flex;
    justify-content: space-around;
    align-items: center;
+}
+
+th, td {
+   border: 1px solid #dddddd;
+   text-align: center;
+   padding: 8px;
 }
 
 @media (max-height: 550px){
