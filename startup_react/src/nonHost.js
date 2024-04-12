@@ -43,9 +43,6 @@ function snatch() {
 
    // Set up which elements we're talking about
    console.log('snatch ' + playerid);
-   const playerScoreboardElement = document.getElementById(playerid);
-   const scoreImgElement = document.querySelector('.player-icon');
-   const scoreElement = document.querySelector('.mallow-count');
 }
 
 function endRound() {

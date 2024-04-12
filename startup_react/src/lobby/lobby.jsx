@@ -79,6 +79,7 @@ async function play(){
         });
         console.log('playing game');
         sendStartCommand();
+        socket.close;
         window.location.href = '/play';
      } catch (error) {
         console.error('error starting game:', error);
@@ -86,7 +87,8 @@ async function play(){
      }
   } else {
      setTimeout ( () => {
-        window.location.href = '/nonHost';
+      socket.close;
+      window.location.href = '/nonHost';
      }, 10);
   }
 }
