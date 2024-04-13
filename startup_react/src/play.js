@@ -145,7 +145,7 @@ function endRound(){
    mallowCountImage.style.width = 0;
 }
 
-async function endGame(){
+async function endGame(sendScores = true){
    console.log('ending game...');
    notifyNonHost('finished');
    playable = false;
@@ -157,27 +157,28 @@ async function endGame(){
    document.getElementById('player-name').style.display = 'none';
    document.getElementById('last-round-action').textContent = " ";
 
-   // Make the final score elements appear
-   const mainItems = document.querySelectorAll('.post-game-main')
-   mainItems.forEach((item) => {
-      item.style.display = "flex";
-   });
+   if(sendScores){
+      // Make the final score elements appear
+      const mainItems = document.querySelectorAll('.post-game-main')
+      mainItems.forEach((item) => {
+         item.style.display = "flex";
+      });
 
-   // Find the player with the highest score
-   let highestScorer = { userName: getPlayerName(), score: playerScore };
-   nonHostPlayers.forEach(player => {
-       if (player.score > highestScorer.score) {
-           highestScorer = { userName: player.userName, score: player.score };
-       }
-   });
-   document.querySelector('#post-game-username').textContent = highestScorer.userName;
-   document.querySelector('#post-game-score').textContent = highestScorer.score;
+      // Find the player with the highest score
+      let highestScorer = { userName: getPlayerName(), score: playerScore };
+      nonHostPlayers.forEach(player => {
+         if (player.score > highestScorer.score) {
+            highestScorer = { userName: player.userName, score: player.score };
+         }
+      });
+      document.querySelector('#post-game-username').textContent = highestScorer.userName;
+      document.querySelector('#post-game-score').textContent = highestScorer.score;
 
-   updateScores(playerScore, getPlayerName());
-   nonHostPlayers.forEach(player => {
-      updateScores(player.score, player.userName);
-   })
-
+      updateScores(playerScore, getPlayerName());
+      nonHostPlayers.forEach(player => {
+         updateScores(player.score, player.userName);
+      })
+   }
    // Let the main system know that the game is over
    try {
       const host = getPlayerName();
@@ -433,7 +434,7 @@ function createPlayerScoreBoard(name){
 }
 
 function quit(){
-   endGame();
+   endGame(false);
    alert('Redirecting to main');
    setTimeout(() => {
       window.location.href = 'join.html';

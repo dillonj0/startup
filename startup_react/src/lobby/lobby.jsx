@@ -29,6 +29,22 @@ export function Lobby() {
     }
   }, []);
 
+  useEffect(() => {
+    // Add event listener for beforeunload event to close WebSocket connection
+    window.addEventListener("beforeunload", closeSocket);
+    return () => {
+      // Cleanup: Remove the event listener when component unmounts
+      window.removeEventListener("beforeunload", closeSocket);
+    };
+  }, []);
+
+  // Function to close WebSocket connection
+  const closeSocket = () => {
+    if (socket.readyState === WebSocket.OPEN) {
+      socket.close();
+    }
+  };
+
   return (
     <main>
       <span id="player-name">{playerName}</span>
@@ -51,7 +67,7 @@ function getHostName() {
 }
 
 function isAuthenticated(){
-  username = localStorage.getItem("userName");
+  const username = localStorage.getItem("userName");
   if(username){
      return true;
   }
@@ -61,35 +77,30 @@ function isAuthenticated(){
 function isHost() {
   const hostName = getHostName();
   const playerName = getPlayerName();
-  // console.log('Player name: ' + playerName);
-  // console.log('Host name: ' + hostName);
-  
-  return hostName == playerName;
+  return hostName === playerName;
 }
 
 async function play(){
-  // send out websocket note to start the game
   if(isHost()){
-     try {
-        const host = getHostName();
-        const response = await fetch('/api/changeGameStatus', {
-           method: 'POST',
-           headers: {'content-type': 'application/json'},
-           body: JSON.stringify({hostName: host})
-        });
-        console.log('playing game');
-        sendStartCommand();
-        socket.close;
-        window.location.href = '/play';
-     } catch (error) {
-        console.error('error starting game:', error);
-        // alert('There was an error starting the game.');
-     }
+    try {
+      const host = getHostName();
+      const response = await fetch('/api/changeGameStatus', {
+        method: 'POST',
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify({hostName: host})
+      });
+      console.log('playing game');
+      sendStartCommand();
+      socket.close();
+      window.location.href = '/play';
+    } catch (error) {
+      console.error('error starting game:', error);
+    }
   } else {
-     setTimeout ( () => {
-      socket.close;
+    setTimeout ( () => {
+      socket.close();
       window.location.href = '/nonHost';
-     }, 10);
+    }, 10);
   }
 }
 
