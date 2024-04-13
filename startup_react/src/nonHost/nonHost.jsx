@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-export function NonHost() {
+export default function NonHost() {
   const [playerName, setPlayerName] = useState('');
   useEffect(() => {
     const storedUsername = localStorage.getItem('userName');
@@ -100,7 +100,7 @@ socket.onmessage = function(event) {
       } else if (command === 'finished') {
         alert('The host has ended the game. You will be redirected to the lobby.');
         socket.close;
-        window.location.href = '/join';
+        window.location.href = '/about';
       }
   }
 };

@@ -27,6 +27,10 @@ const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
 // Use json body parsing. Allow access to the front-end content folder.
 app.use(express.json());
+
+// Serve up the applications static content
+app.use(express.static('public'));
+
 app.set('trust proxy', true);
 
 // I need a service to store all the high scores.
@@ -37,6 +41,13 @@ app.use(`/api`, apiRouter);
 // Create an HTTP server using Express
 const server = app.listen(port, () => {
     console.log(`service backend listening on port ${port}`);
+});
+
+// Simon service uses this code to send you to home if you ask for
+//    some weird unknown page in your http request
+app.use((_req, res) => {
+    res.sendFile('index.html', { root: 'public' });
+    console.log('unknown page requested, redirecting client to home page...');
 });
 
 // Create websocket object
@@ -236,13 +247,6 @@ apiRouter.get('/gameList', async (req, res) => {
     console.log('Open games: ', openGames);
     res.send(openGames);
     console.log('Game list sent back to client');
-});
-
-// Simon service uses this code to send you to home if you ask for
-//    some weird unknown page in your http request
-app.use((_req, res) => {
-    res.sendFile('index.html', { root: 'public' });
-    console.log('unknown page requested, redirecting client to home page...');
 });
 
 // An array of game objects: {hostName, status}

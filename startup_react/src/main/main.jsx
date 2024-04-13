@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom"; // Import NavLink from react-router-dom
 
-export function Main() {
+export default function Main() {
   const [quote, setQuote] = useState('');
   useEffect(() => {
     fetchQuote();

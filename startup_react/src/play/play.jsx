@@ -18,7 +18,7 @@ let roundNumber = 0;
 
 const scoreboardImgScale = 0.5;
 
-export function Play() {
+export default function Play() {
   const secLeftElement = useRef(null);
 
   const NUMBER_OF_ROUNDS = 1;
@@ -144,7 +144,7 @@ export function Play() {
     endGame(false);
     alert('Redirecting to main');
     setTimeout(() => {
-       window.location.href = 'join.html';
+       window.location.href = '/about';
     }, 1000);
   }
 

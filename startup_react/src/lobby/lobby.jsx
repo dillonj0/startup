@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom"; // Import NavLink from react-router-dom
 
-export function Lobby() {
+export default function Lobby() {
   const [isHost, setIsHost] = useState(false);
   useEffect(() => {
     const storedHostName = localStorage.getItem('hostName');

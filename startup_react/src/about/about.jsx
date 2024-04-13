@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
-export function About() {
+export default function About() {
   const [scores, setScores] = useState([]);
 
    useEffect(() => {

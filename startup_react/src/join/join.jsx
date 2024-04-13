@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom"; // Import NavLink from react-router-dom
 
-export function Join() {
+export default function Join() {
   const [playerName, setPlayerName] = useState('');
   
   useEffect(() => {

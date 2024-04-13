@@ -2,13 +2,13 @@ import React from 'react';
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './app.css'
-import {Main} from './main/main'
-import {Join} from './join/join'
-import {Lobby} from './lobby/lobby'
-import {NonHost} from './nonHost/nonHost'
-import {Play} from './play/play'
-import {About} from './about/about'
-import {Instructions} from './instructions/instructions'
+import Main from './main/main.jsx'
+import Join from './join/join.jsx'
+import Lobby from './lobby/lobby.jsx'
+import NonHost from './nonHost/nonHost.jsx'
+import Play from './play/play.jsx'
+import About from './about/about.jsx'
+import Instructions from './instructions/instructions.jsx'
 
 export function NotFound() {
    return <div className="notFound comp">404: Not found.</div>;
@@ -40,7 +40,7 @@ export default function App() {
                   <Route path = '/nonHost' element = {<NonHost />} />
                   <Route path = '/play' element = {<Play />} />
                   <Route path = '/about' element = {<About />} />
-                  <Route path = '*' element = {<NotFound />} exact />
+                  <Route path = '*' element = {<Main />} exact />
                </Routes>
             </div>
             <hr />
