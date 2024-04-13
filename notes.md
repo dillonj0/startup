@@ -1,6 +1,16 @@
 # Web Programming
 ## Dillon Jensen
 
+### _12/APR/2024_
+Progressive Web Application:
+- Once code base to run on browser, desktop, any mobile application renderer
+- Works offline
+- You don't lose anything because the people writing the backend also want to be able to support PWA features
+- "Ridiculously easy" to create a PWA
+--> Needs a manifest, list of icons, service worker, offline fallbacks
+Service worker --> Background jobs and filecaching, basically.
+- "The simplicity of it is beautiful."
+
 ### _10/APR/2024_
 Problems I've been having with my startup port over to React and how to fix them?
 - Not displaying document in list of dependencies and sources:

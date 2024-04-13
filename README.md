@@ -101,3 +101,8 @@ For this deliverable I deployed the Simon HTML to my server and built the struct
 [x] Frontend depends on WS messages to direct user traffic and provide multiplayer functionality
 [x] Final version of the code pushed to GitHub
 In this deliverable I had to make two additional HTML pages so there's a lobby before a game is started by a host, and so that players that aren't the host have just a simple UI where they hit the "snatch" button and WS handles delivering the message to the host. Host's frontend handles all the gameplay processing and submits the high scores at the end.
+
+## React Deliverable
+[x] Simon React deployed to production environment.
+[x] Ported Startup code over to React. This version is a little jankier than my WebSocket submission (as if that were possible), but it is good enough for me to say I learned what I wanted to learn.
+[x] Updated code pushed to GitHub, launched to production environment.

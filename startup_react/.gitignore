@@ -4,3 +4,4 @@ node_modules/
 dbkeys.sh
 cookie.txt
 dbConfig.json
+package*
